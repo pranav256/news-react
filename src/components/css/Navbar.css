@@ -1,0 +1,80 @@
+nav {
+  display: flex;
+  z-index: 1;
+  width: 100%;
+  background-color: var(--primary-color);
+  position: fixed;
+  justify-content: flex-start;
+  top: 0;
+}
+#icon {
+  margin-right: 20px;
+}
+.navBarContent {
+  list-style: none;
+  margin-right: 10px;
+  transition-duration: 0.5s;
+}
+
+nav ul {
+  display: flex;
+}
+
+#newsName {
+  margin-top: 3.5em;
+  text-align: center;
+  font-size: 25px;
+}
+
+/* Dropdown */
+
+.dropdown {
+  display: inline-block;
+  position: relative;
+  z-index: 1;
+}
+
+.dropDownButton {
+  font: 20px;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  display: inline-block;
+  border-radius: 8px;
+  padding: 10px 30px 10px 20px;
+  cursor: pointer;
+  border: none;
+}
+
+.dropDownButton:after {
+  content: "";
+  position: absolute;
+
+  transform: translateY(-50%);
+}
+
+.dropDownBox {
+  display: none;
+}
+
+.dropDownMenu {
+  position: absolute;
+  border: 1px solid var(--secondary-color);
+  border-radius: 8px;
+  padding: 0;
+  background-color: var(--primary-color);
+  list-style-type: none;
+}
+
+.dropDownBox + .dropDownMenu {
+  display: none;
+}
+
+.dropDownBox:checked + .dropDownMenu {
+  display: block;
+}
+
+.dropDownMenu li {
+  padding: 11px;
+  cursor: pointer;
+  white-space: nowrap;
+}
