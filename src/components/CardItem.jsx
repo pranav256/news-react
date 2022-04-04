@@ -22,8 +22,6 @@ function Carditem({
           <div className="card-body">
             <h5 className="card-title">{title}</h5>
             <p className="card-text">{description}</p>
-            <p className="card-text">{changeToLocalTime(published_time)}</p>
-            <p>{!site_name ? "" : `By ${site_name}`}</p>
             <a
               className="readMoreLink"
               href={url}
@@ -32,6 +30,8 @@ function Carditem({
             >
               Click Here to read more
             </a>
+            <p>{!site_name ? "" : `By ${site_name}`}</p>
+            <p className="card-text">{changeToLocalTime(published_time)}</p>
             <SocialMediaLinks title={title} url={url} />
           </div>
         </div>

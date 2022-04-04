@@ -1,80 +1,84 @@
-nav {
-  display: flex;
-  z-index: 1;
-  width: 100%;
-  background-color: var(--primary-color);
+
+header{
   position: fixed;
+  z-index: 1;
+  background-color:hsl(225, 6%, 13%);
+  width: 100%;
   justify-content: flex-start;
   top: 0;
 }
-#icon {
-  margin-right: 20px;
+.navbar {
+  display: flex;
+align-items: center;
 }
-.navBarContent {
-  list-style: none;
-  margin-right: 10px;
-  transition-duration: 0.5s;
+#icon {
+  margin-left: 20px;
+  width: 48px;
+  height: 48px;
+}
+#newsName {
+  text-align: center;
+  font-size: 25px;
+  margin-top: 3.5em;
 }
 
 nav ul {
   display: flex;
 }
 
-#newsName {
-  margin-top: 3.5em;
-  text-align: center;
-  font-size: 25px;
+.list {
+  list-style: none;
+  margin-right: 20px;
+  transition-duration: 0.5s;
 }
-
-/* Dropdown */
 
 .dropdown {
-  display: inline-block;
   position: relative;
-  z-index: 1;
+  display: inline-block;
 }
-
-.dropDownButton {
-  font: 20px;
+.dropbtn {
   background-color: var(--primary-color);
   color: var(--secondary-color);
-  display: inline-block;
-  border-radius: 8px;
-  padding: 10px 30px 10px 20px;
-  cursor: pointer;
+  padding: 8px;
   border: none;
+  cursor: pointer;
+  font-size: 18px;
 }
 
-.dropDownButton:after {
-  content: "";
-  position: absolute;
-
-  transform: translateY(-50%);
-}
-
-.dropDownBox {
+.dropdown-content {
   display: none;
+  position: absolute;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+
 }
 
-.dropDownMenu {
-  position: absolute;
-  border: 1px solid var(--secondary-color);
-  border-radius: 8px;
-  padding: 0;
+.dropdown-item {
   background-color: var(--primary-color);
-  list-style-type: none;
+  color: var(--secondary-color);
+  padding: 10px;
+  text-decoration: none;
+  display: block;
+  font-size: 16px;
 }
 
-.dropDownBox + .dropDownMenu {
-  display: none;
+.dropdown-item:hover{
+  cursor: pointer;
 }
 
-.dropDownBox:checked + .dropDownMenu {
+
+
+.dropdown-content a:hover {
+  background-color: #000000;
+  color: white;
+}
+
+.dropdown:hover .dropdown-content {
   display: block;
 }
 
-.dropDownMenu li {
-  padding: 11px;
-  cursor: pointer;
-  white-space: nowrap;
+.dropdown:hover .dropbtn {
+  background-color: #061f58af;
+  border-radius: 5px;
 }

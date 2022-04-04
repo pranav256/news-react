@@ -1,9 +1,9 @@
 :root {
-  --primary-color: #191919;
-  --secondary-color: #ecdbba;
+  --primary-color: #202124;
+  --secondary-color: #feffff;
 }
 body {
-  font-family: "Raleway", sans-serif;
+  font-family: "Poppins", sans-serif;
   margin: 0;
   padding: 0;
   overflow-x: hidden;

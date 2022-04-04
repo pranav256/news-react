@@ -1,105 +1,112 @@
-import React from "react";
 import "./css/Navbar.css";
-function NavbarNew({ setCategory, setCountry, setCountryName }) {
+import React from "react";
+
+function Navbar({ setCategory, setCountry, setCountryName }) {
   return (
     <header>
-      <nav>
+      <nav class="navbar">
+        <img
+          id="icon"
+          src="https://img.icons8.com/fluency/48/000000/news.png"
+          alt="icon"
+        />
         <ul>
-          <li className="navBarContent">
-            <img
-              id="icon"
-              src="https://img.icons8.com/fluency/48/000000/news.png"
-              alt="icon"
-            />
-          </li>
-          <li className="navBarContent">
-            <label className="dropdown">
-              <div className="dropDownButton">Country</div>
-              <input type="checkbox" className="dropDownBox" />
-              <ul className="dropDownMenu">
-                <li
+          <li className="list">
+            <div class="dropdown">
+              <button class="dropbtn">Category</button>
+              <div class="dropdown-content">
+                <span
+                  className="dropdown-item"
                   onClick={() => {
                     setCategory("general");
                   }}
                 >
                   General
-                </li>
-                <li
+                </span>
+                <span
+                  className="dropdown-item"
                   onClick={() => {
                     setCategory("business");
                   }}
                 >
                   Business
-                </li>
-                <li
+                </span>
+                <span
+                  className="dropdown-item"
                   onClick={() => {
                     setCategory("technology");
                   }}
                 >
                   Technology
-                </li>
-                <li
+                </span>
+                <span
+                  className="dropdown-item"
                   onClick={() => {
                     setCategory("entertainment");
                   }}
                 >
                   Entertainment
-                </li>
-                <li
+                </span>
+                <span
+                  className="dropdown-item"
                   onClick={() => {
                     setCategory("science");
                   }}
                 >
                   Science
-                </li>
-                <li
+                </span>
+                <span
+                  className="dropdown-item"
                   onClick={() => {
                     setCategory("health");
                   }}
                 >
                   Health
-                </li>
-                <li
+                </span>
+                <span
+                  className="dropdown-item"
                   onClick={() => {
                     setCategory("sports");
                   }}
                 >
                   Sports
-                </li>
-              </ul>
-            </label>
+                </span>
+              </div>
+            </div>
           </li>
-          <li className="navBarContent">
-            <label className="dropdown">
-              <div className="dropDownButton">Country</div>
-              <input type="checkbox" className="dropDownBox" />
-              <ul className="dropDownMenu">
-                <li
+          <li className="list">
+            <div class="dropdown">
+              <button class="dropbtn">Country</button>
+              <div class="dropdown-content">
+                <span
+                  className="dropdown-item"
                   onClick={() => {
                     setCountry("in");
                     setCountryName("India");
                   }}
                 >
                   India
-                </li>
-                <li
+                </span>
+                <span
+                  className="dropdown-item"
                   onClick={() => {
                     setCountry("us");
                     setCountryName("United States");
                   }}
                 >
                   USA
-                </li>
-                <li
+                </span>
+                <span
+                  className="dropdown-item"
                   onClick={() => {
                     setCountry("gb");
                     setCountryName("United Kingdom");
                   }}
                 >
                   United Kingdom
-                </li>
-              </ul>
-            </label>
+                </span>
+              </div>
+            </div>
           </li>
         </ul>
       </nav>
@@ -107,4 +114,4 @@ function NavbarNew({ setCategory, setCountry, setCountryName }) {
   );
 }
 
-export default NavbarNew;
+export default Navbar;
