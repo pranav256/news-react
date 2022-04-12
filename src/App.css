@@ -13,12 +13,12 @@ body {
 }
 
 @media (min-width: 768px) {
-  .img-holder {
+  .imgHolder {
     flex: 0 0 auto;
     width: 33.33333333%;
   }
 
-  .card-body-container {
+  .cardBodyContainer {
     flex: 0 0 auto;
     width: 66.66666667%;
   }

@@ -8,21 +8,21 @@
   border-bottom: 2px solid rgb(78, 77, 82);
 }
 
-.card-body {
+.cardBody {
   flex: 1 1 auto;
   padding: 1rem 1rem;
 }
 
-.card-title {
+.cardTitle {
   margin-bottom: 0.5rem;
   font-size: 22px;
 }
 
-.card-text {
+.cardText {
   font-size: 18px;
 }
 
-.img-card {
+.imgCard {
   max-width: 100%;
   height: 100%;
   border: 2px rgb(0, 0, 0) solid;

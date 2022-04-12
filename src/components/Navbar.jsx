@@ -12,11 +12,11 @@ function Navbar({ setCategory, setCountry, setCountryName }) {
         />
         <ul>
           <li className="list">
-            <div className="dropdown">
-              <button className="dropbtn">Category</button>
-              <div className="dropdown-content">
+            <div className="dropDown">
+              <button className="dropBtn">Category</button>
+              <div className="dropDownContent">
                 <span
-                  className="dropdown-item"
+                  className="dropDownItem"
                   onClick={() => {
                     setCategory("general");
                   }}
@@ -24,7 +24,7 @@ function Navbar({ setCategory, setCountry, setCountryName }) {
                   General
                 </span>
                 <span
-                  className="dropdown-item"
+                  className="dropDownItem"
                   onClick={() => {
                     setCategory("business");
                   }}
@@ -32,7 +32,7 @@ function Navbar({ setCategory, setCountry, setCountryName }) {
                   Business
                 </span>
                 <span
-                  className="dropdown-item"
+                  className="dropDownItem"
                   onClick={() => {
                     setCategory("technology");
                   }}
@@ -40,7 +40,7 @@ function Navbar({ setCategory, setCountry, setCountryName }) {
                   Technology
                 </span>
                 <span
-                  className="dropdown-item"
+                  className="dropDownItem"
                   onClick={() => {
                     setCategory("entertainment");
                   }}
@@ -48,7 +48,7 @@ function Navbar({ setCategory, setCountry, setCountryName }) {
                   Entertainment
                 </span>
                 <span
-                  className="dropdown-item"
+                  className="dropDownItem"
                   onClick={() => {
                     setCategory("science");
                   }}
@@ -56,7 +56,7 @@ function Navbar({ setCategory, setCountry, setCountryName }) {
                   Science
                 </span>
                 <span
-                  className="dropdown-item"
+                  className="dropDownItem"
                   onClick={() => {
                     setCategory("health");
                   }}
@@ -64,7 +64,7 @@ function Navbar({ setCategory, setCountry, setCountryName }) {
                   Health
                 </span>
                 <span
-                  className="dropdown-item"
+                  className="dropDownItem"
                   onClick={() => {
                     setCategory("sports");
                   }}
@@ -75,11 +75,11 @@ function Navbar({ setCategory, setCountry, setCountryName }) {
             </div>
           </li>
           <li className="list">
-            <div className="dropdown">
-              <button className="dropbtn">Country</button>
-              <div className="dropdown-content">
+            <div className="dropDown">
+              <button className="dropBtn">Country</button>
+              <div className="dropDownContent">
                 <span
-                  className="dropdown-item"
+                  className="dropDownItem"
                   onClick={() => {
                     setCountry("in");
                     setCountryName("India");
@@ -88,7 +88,7 @@ function Navbar({ setCategory, setCountry, setCountryName }) {
                   India
                 </span>
                 <span
-                  className="dropdown-item"
+                  className="dropDownItem"
                   onClick={() => {
                     setCountry("us");
                     setCountryName("United States");
@@ -97,7 +97,7 @@ function Navbar({ setCategory, setCountry, setCountryName }) {
                   USA
                 </span>
                 <span
-                  className="dropdown-item"
+                  className="dropDownItem"
                   onClick={() => {
                     setCountry("gb");
                     setCountryName("United Kingdom");

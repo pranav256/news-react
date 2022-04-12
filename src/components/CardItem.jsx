@@ -15,13 +15,13 @@ function CardItem({
   return (
     <div className="card">
       <div className="row">
-        <div className="img-holder">
-          <img src={imgUrl} className="img-card" alt="..." />
+        <div className="imgHolder">
+          <img src={imgUrl} className="imgCard" alt="..." />
         </div>
-        <div className="card-body-container">
-          <div className="card-body">
-            <h3 className="card-title">{title}</h3>
-            <p className="card-text">{description}</p>
+        <div className="cardBodyContainer">
+          <div className="cardBody">
+            <h3 className="cardTitle">{title}</h3>
+            <p className="cardText">{description}</p>
             <a
               className="readMoreLink"
               href={url}
@@ -31,7 +31,7 @@ function CardItem({
               Click Here to read more
             </a>
             <p>{!site_name ? "" : `By ${site_name}`}</p>
-            <p className="card-text">{changeToLocalTime(published_time)}</p>
+            <p className="cardText">{changeToLocalTime(published_time)}</p>
             <SocialMediaLinks title={title} url={url} />
           </div>
         </div>
