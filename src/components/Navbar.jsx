@@ -4,7 +4,7 @@ import React from "react";
 function Navbar({ setCategory, setCountry, setCountryName }) {
   return (
     <header>
-      <nav class="navbar">
+      <nav className="navbar">
         <img
           id="icon"
           src="https://img.icons8.com/fluency/48/000000/news.png"
@@ -12,9 +12,9 @@ function Navbar({ setCategory, setCountry, setCountryName }) {
         />
         <ul>
           <li className="list">
-            <div class="dropdown">
-              <button class="dropbtn">Category</button>
-              <div class="dropdown-content">
+            <div className="dropdown">
+              <button className="dropbtn">Category</button>
+              <div className="dropdown-content">
                 <span
                   className="dropdown-item"
                   onClick={() => {
@@ -75,9 +75,9 @@ function Navbar({ setCategory, setCountry, setCountryName }) {
             </div>
           </li>
           <li className="list">
-            <div class="dropdown">
-              <button class="dropbtn">Country</button>
-              <div class="dropdown-content">
+            <div className="dropdown">
+              <button className="dropbtn">Country</button>
+              <div className="dropdown-content">
                 <span
                   className="dropdown-item"
                   onClick={() => {

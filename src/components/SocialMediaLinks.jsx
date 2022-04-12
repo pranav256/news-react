@@ -43,7 +43,7 @@ export default function SocialMediaLinks({ url, title }) {
         target="_blank"
         title="Share on WhatsApp"
         rel="noopener noreferrer"
-        href={`whatsapp://send?text=${title} ${url}`}
+        href={`whatsapp://send?text=${url}`}
       >
         <img
           className="socialMediaIcon"

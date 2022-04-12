@@ -1,6 +1,6 @@
 import React from "react";
 import SocialMediaLinks from "./SocialMediaLinks";
-function Carditem({
+function CardItem({
   imgUrl,
   title,
   description,
@@ -20,7 +20,7 @@ function Carditem({
         </div>
         <div className="card-body-container">
           <div className="card-body">
-            <h5 className="card-title">{title}</h5>
+            <h3 className="card-title">{title}</h3>
             <p className="card-text">{description}</p>
             <a
               className="readMoreLink"
@@ -40,4 +40,4 @@ function Carditem({
   );
 }
 
-export default Carditem;
+export default CardItem;

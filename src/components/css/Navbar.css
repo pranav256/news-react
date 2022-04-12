@@ -1,15 +1,14 @@
-
-header{
+header {
   position: fixed;
   z-index: 1;
-  background-color:hsl(225, 6%, 13%);
+  background-color: hsl(225, 6%, 13%);
   width: 100%;
   justify-content: flex-start;
   top: 0;
 }
 .navbar {
   display: flex;
-align-items: center;
+  align-items: center;
 }
 #icon {
   margin-left: 20px;
@@ -51,7 +50,6 @@ nav ul {
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
-
 }
 
 .dropdown-item {
@@ -63,11 +61,9 @@ nav ul {
   font-size: 16px;
 }
 
-.dropdown-item:hover{
+.dropdown-item:hover {
   cursor: pointer;
 }
-
-
 
 .dropdown-content a:hover {
   background-color: #000000;
