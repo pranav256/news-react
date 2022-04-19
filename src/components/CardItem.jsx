@@ -16,7 +16,7 @@ function CardItem({
     <div className="card">
       <div className="row">
         <div className="imgHolder">
-          <img src={imgUrl} className="imgCard" alt="..." />
+          <img src={imgUrl} className="imgCard" alt="..." loading="lazy"  />
         </div>
         <div className="cardBodyContainer">
           <div className="cardBody">
