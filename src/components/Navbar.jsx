@@ -1,3 +1,18 @@
+const categoryObj = [
+  { text: "General", value: "general" },
+  { text: "Business", value: "business" },
+  { text: "Technology", value: "technology" },
+  { text: "Entertainment", value: "entertainment" },
+  { text: "Science", value: "science" },
+  { text: "Health", value: "health" },
+  { text: "Sports", value: "sports" },
+];
+
+const countryObj = [
+  { text: "India", value: "in", countryName: "India" },
+  { text: "United States", value: "us", countryName: "US" },
+  { text: "United Kingdom", value: "gb", countryName: "UK" },
+];
 const Navbar = ({ setCategory, setCountry, setCountryName }) => {
   return (
     <nav className="p-2 flex flex-row align-text-bottom  bg-gray-100">
@@ -20,76 +35,18 @@ const Navbar = ({ setCategory, setCountry, setCountryName }) => {
         </button>
 
         <ul className="absolute hidden text-gray-700 pt-1 group-hover:block">
-          <li>
-            <button
-              onClick={() => {
-                setCategory("general");
-              }}
-              className="m-0.5 text-left rounded bg-gray-200 text-slate-800 hover:bg-gray-300 py-2 px-4 w-full"
-            >
-              General
-            </button>
-          </li>
-          <li>
-            <button
-              onClick={() => {
-                setCategory("business");
-              }}
-              className="m-0.5 text-left rounded bg-gray-200 text-slate-800 hover:bg-gray-300 py-2 px-4 w-full"
-            >
-              Business
-            </button>
-          </li>
-          <li>
-            <button
-              onClick={() => {
-                setCategory("technology");
-              }}
-              className="m-0.5 text-left rounded bg-gray-200 text-slate-800 hover:bg-gray-300 py-2 px-4 w-full"
-            >
-              Technology
-            </button>
-          </li>
-          <li>
-            <button
-              onClick={() => {
-                setCategory("entertainment");
-              }}
-              className="m-0.5 text-left rounded bg-gray-200 text-slate-800 hover:bg-gray-300 py-2 px-4 w-full"
-            >
-              Entertainment
-            </button>
-          </li>
-          <li>
-            <button
-              onClick={() => {
-                setCategory("science");
-              }}
-              className="m-0.5 text-left rounded bg-gray-200 text-slate-800 hover:bg-gray-300 py-2 px-4 w-full"
-            >
-              Science
-            </button>
-          </li>
-          <li>
-            <button
-              onClick={() => {
-                setCategory("health");
-              }}
-              className="m-0.5 text-left rounded bg-gray-200 text-slate-800 hover:bg-gray-300 py-2 px-4 w-full"
-            >
-              Health
-            </button>
-          </li>
-          <li>
-            <button
-              onClick={() => {
-                setCategory("sports");
-              }}
-              className="m-0.5 text-left rounded bg-gray-200 text-slate-800 hover:bg-gray-300 py-2 px-4 w-full"
-            >
-              Sports
-            </button>
-          </li>
+          {categoryObj.map(({ text, value }, index) => (
+            <li key={index}>
+              <button
+                onClick={() => {
+                  setCategory(value);
+                }}
+                className="m-0.5 text-left rounded bg-gray-200 text-slate-800 hover:bg-gray-300 py-2 px-4 w-full"
+              >
+                {text}
+              </button>
+            </li>
+          ))}
         </ul>
       </div>
 
@@ -105,39 +62,19 @@ const Navbar = ({ setCategory, setCountry, setCountryName }) => {
           </svg>
         </button>
         <ul className="absolute hidden text-gray-700 pt-1 group-hover:block">
-          <li>
-            <button
-              onClick={() => {
-                setCountry("in");
-                setCountryName("India");
-              }}
-              className="m-1 text-left rounded bg-gray-200 text-slate-800 hover:bg-gray-300 py-2 px-4 w-full"
-            >
-              India
-            </button>
-          </li>
-          <li>
-            <button
-              onClick={() => {
-                setCountry("us");
-                setCountryName("United States");
-              }}
-              className="m-1 text-left rounded bg-gray-200 text-slate-800 hover:bg-gray-300 py-2 px-4 w-full"
-            >
-              US
-            </button>
-          </li>
-          <li>
-            <button
-              onClick={() => {
-                setCountry("gb");
-                setCountryName("United Kingdom");
-              }}
-              className="m-1 text-left rounded bg-gray-200 text-slate-800 hover:bg-gray-300 py-2 px-4 w-full"
-            >
-              UK
-            </button>
-          </li>
+          {countryObj.map(({ text, value, countryName }, index) => (
+            <li key={index}>
+              <button
+                onClick={() => {
+                  setCountry(value);
+                  setCountryName(countryName);
+                }}
+                className="m-1 text-left rounded bg-gray-200 text-slate-800 hover:bg-gray-300 py-2 px-4 w-full"
+              >
+                {text}
+              </button>
+            </li>
+          ))}
         </ul>
       </div>
     </nav>
