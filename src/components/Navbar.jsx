@@ -1,117 +1,147 @@
-import "./css/Navbar.css";
-import React from "react";
-
-function Navbar({ setCategory, setCountry, setCountryName }) {
+const Navbar = ({ setCategory, setCountry, setCountryName }) => {
   return (
-    <header>
-      <nav className="navbar">
-        <img
-          id="icon"
-          src="https://img.icons8.com/fluency/48/000000/news.png"
-          alt="icon"
-        />
-        <ul>
-          <li className="list">
-            <div className="dropDown">
-              <button className="dropBtn">Category</button>
-              <div className="dropDownContent">
-                <span
-                  className="dropDownItem"
-                  onClick={() => {
-                    setCategory("general");
-                  }}
-                >
-                  General
-                </span>
-                <span
-                  className="dropDownItem"
-                  onClick={() => {
-                    setCategory("business");
-                  }}
-                >
-                  Business
-                </span>
-                <span
-                  className="dropDownItem"
-                  onClick={() => {
-                    setCategory("technology");
-                  }}
-                >
-                  Technology
-                </span>
-                <span
-                  className="dropDownItem"
-                  onClick={() => {
-                    setCategory("entertainment");
-                  }}
-                >
-                  Entertainment
-                </span>
-                <span
-                  className="dropDownItem"
-                  onClick={() => {
-                    setCategory("science");
-                  }}
-                >
-                  Science
-                </span>
-                <span
-                  className="dropDownItem"
-                  onClick={() => {
-                    setCategory("health");
-                  }}
-                >
-                  Health
-                </span>
-                <span
-                  className="dropDownItem"
-                  onClick={() => {
-                    setCategory("sports");
-                  }}
-                >
-                  Sports
-                </span>
-              </div>
-            </div>
+    <nav className="p-2 flex flex-row align-text-bottom  bg-gray-100">
+      <img
+        src="https://img.icons8.com/fluency/48/000000/news.png"
+        alt="news"
+        className="mx-2"
+      />
+
+      <div className="group inline-block relative m-1">
+        <button className="bg-gray-100  text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center">
+          <span className="mr-1">Category</span>
+          <svg
+            className="fill-current h-4 w-4"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+          >
+            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+          </svg>
+        </button>
+
+        <ul className="absolute hidden text-gray-700 pt-1 group-hover:block">
+          <li>
+            <button
+              onClick={() => {
+                setCategory("general");
+              }}
+              className="m-0.5 text-left rounded bg-gray-200 text-slate-800 hover:bg-gray-300 py-2 px-4 w-full"
+            >
+              General
+            </button>
           </li>
-          <li className="list">
-            <div className="dropDown">
-              <button className="dropBtn">Country</button>
-              <div className="dropDownContent">
-                <span
-                  className="dropDownItem"
-                  onClick={() => {
-                    setCountry("in");
-                    setCountryName("India");
-                  }}
-                >
-                  India
-                </span>
-                <span
-                  className="dropDownItem"
-                  onClick={() => {
-                    setCountry("us");
-                    setCountryName("United States");
-                  }}
-                >
-                  USA
-                </span>
-                <span
-                  className="dropDownItem"
-                  onClick={() => {
-                    setCountry("gb");
-                    setCountryName("United Kingdom");
-                  }}
-                >
-                  United Kingdom
-                </span>
-              </div>
-            </div>
+          <li>
+            <button
+              onClick={() => {
+                setCategory("business");
+              }}
+              className="m-0.5 text-left rounded bg-gray-200 text-slate-800 hover:bg-gray-300 py-2 px-4 w-full"
+            >
+              Business
+            </button>
+          </li>
+          <li>
+            <button
+              onClick={() => {
+                setCategory("technology");
+              }}
+              className="m-0.5 text-left rounded bg-gray-200 text-slate-800 hover:bg-gray-300 py-2 px-4 w-full"
+            >
+              Technology
+            </button>
+          </li>
+          <li>
+            <button
+              onClick={() => {
+                setCategory("entertainment");
+              }}
+              className="m-0.5 text-left rounded bg-gray-200 text-slate-800 hover:bg-gray-300 py-2 px-4 w-full"
+            >
+              Entertainment
+            </button>
+          </li>
+          <li>
+            <button
+              onClick={() => {
+                setCategory("science");
+              }}
+              className="m-0.5 text-left rounded bg-gray-200 text-slate-800 hover:bg-gray-300 py-2 px-4 w-full"
+            >
+              Science
+            </button>
+          </li>
+          <li>
+            <button
+              onClick={() => {
+                setCategory("health");
+              }}
+              className="m-0.5 text-left rounded bg-gray-200 text-slate-800 hover:bg-gray-300 py-2 px-4 w-full"
+            >
+              Health
+            </button>
+          </li>
+          <li>
+            <button
+              onClick={() => {
+                setCategory("sports");
+              }}
+              className="m-0.5 text-left rounded bg-gray-200 text-slate-800 hover:bg-gray-300 py-2 px-4 w-full"
+            >
+              Sports
+            </button>
           </li>
         </ul>
-      </nav>
-    </header>
+      </div>
+
+      <div className="group inline-block relative m-1">
+        <button className="bg-gray-100 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center">
+          <span className="mr-1">Country</span>
+          <svg
+            className="fill-current h-4 w-4"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+          >
+            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+          </svg>
+        </button>
+        <ul className="absolute hidden text-gray-700 pt-1 group-hover:block">
+          <li>
+            <button
+              onClick={() => {
+                setCountry("in");
+                setCountryName("India");
+              }}
+              className="m-1 text-left rounded bg-gray-200 text-slate-800 hover:bg-gray-300 py-2 px-4 w-full"
+            >
+              India
+            </button>
+          </li>
+          <li>
+            <button
+              onClick={() => {
+                setCountry("us");
+                setCountryName("United States");
+              }}
+              className="m-1 text-left rounded bg-gray-200 text-slate-800 hover:bg-gray-300 py-2 px-4 w-full"
+            >
+              US
+            </button>
+          </li>
+          <li>
+            <button
+              onClick={() => {
+                setCountry("gb");
+                setCountryName("United Kingdom");
+              }}
+              className="m-1 text-left rounded bg-gray-200 text-slate-800 hover:bg-gray-300 py-2 px-4 w-full"
+            >
+              UK
+            </button>
+          </li>
+        </ul>
+      </div>
+    </nav>
   );
-}
+};
 
 export default Navbar;

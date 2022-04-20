@@ -1,8 +1,6 @@
-import React from "react";
-import "./css/SocialMediaLink.css";
 export default function SocialMediaLinks({ url, title }) {
   return (
-    <div className="socialMedia">
+    <div className="w-56 mx-2 flex flex-row">
       <a
         title="Share on Twitter"
         target="_blank"
@@ -10,7 +8,7 @@ export default function SocialMediaLinks({ url, title }) {
         href={`https://twitter.com/intent/tweet?url=${url}`}
       >
         <img
-          className="socialMediaIcon"
+          className="p-1"
           src="https://img.icons8.com/fluency/50/000000/twitter.png"
           alt="Share on Twitter"
         />
@@ -22,7 +20,7 @@ export default function SocialMediaLinks({ url, title }) {
         href={`https://telegram.me/share/url?url=${url}&text=${title}`}
       >
         <img
-          className="socialMediaIcon"
+          className="p-1"
           src="https://img.icons8.com/fluency/48/000000/telegram-app.png"
           alt="Share on Telegram"
         />
@@ -34,7 +32,7 @@ export default function SocialMediaLinks({ url, title }) {
         href={`https://www.facebook.com/sharer.php?u=${url}&amp;text=${title}`}
       >
         <img
-          className="socialMediaIcon"
+          className="p-1"
           src="https://img.icons8.com/fluency/48/000000/facebook-new.png"
           alt="Share on Facebook"
         />
@@ -46,7 +44,7 @@ export default function SocialMediaLinks({ url, title }) {
         href={`whatsapp://send?text=${url}`}
       >
         <img
-          className="socialMediaIcon"
+          className="p-1"
           src="https://img.icons8.com/fluency/48/000000/whatsapp.png"
           alt="Share on WhatsApp"
         />

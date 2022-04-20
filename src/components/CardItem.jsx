@@ -1,4 +1,3 @@
-import React from "react";
 import SocialMediaLinks from "./SocialMediaLinks";
 function CardItem({
   imgUrl,
@@ -12,30 +11,20 @@ function CardItem({
     let date = new Date(time).toLocaleString();
     return date;
   };
+
   return (
-    <div className="card">
-      <div className="row">
-        <div className="imgHolder">
-          <img src={imgUrl} className="imgCard" alt="..." loading="lazy"  />
-        </div>
-        <div className="cardBodyContainer">
-          <div className="cardBody">
-            <h3 className="cardTitle">{title}</h3>
-            <p className="cardText">{description}</p>
-            <a
-              className="readMoreLink"
-              href={url}
-              rel="noopener noreferrer"
-              target="_BLANK"
-            >
-              Click Here to read more
-            </a>
-            <p>{!site_name ? "" : `By ${site_name}`}</p>
-            <p className="cardText">{changeToLocalTime(published_time)}</p>
-            <SocialMediaLinks title={title} url={url} />
-          </div>
-        </div>
+    <div class="bg-gray-100 mx-5 flex flex-col pt-6 pb-6 md:flex-row rounded-xl hover:shadow-xl mt-5">
+      <div class="h-64 w-auto md:w-1/2 flex align-middle">
+        <img class="mx-0 sm:mx-4" src={imgUrl} />
       </div>
+      <div class="w-full py-4 px-6 text-gray-800 flex flex-col justify-between">
+        <h3 class="font-semibold text-lg leading-tight ">{title}</h3>
+        <p class="mt-1">{description}</p>
+        <p class="text-sm text-gray-700 uppercase tracking-wide font-semibold mt-2">
+          {site_name} &bull; {changeToLocalTime(published_time)}
+        </p>
+      </div>
+      <SocialMediaLinks title={title} url={url} />
     </div>
   );
 }
