@@ -1,6 +1,6 @@
 export default function SocialMediaLinks({ url, title }) {
   return (
-    <div className="w-56 mx-2 flex flex-row">
+    <div className="flex flex-row w-36 sm:w-56 mx-auto">
       <a
         title="Share on Twitter"
         target="_blank"

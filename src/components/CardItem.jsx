@@ -13,7 +13,7 @@ function CardItem({
   };
 
   return (
-    <div className="bg-gray-100 mx-5 flex flex-col pt-6 pb-6 md:flex-row rounded-xl hover:shadow-xl mt-5">
+    <div className="bg-gray-50 mx-5 flex flex-col pt-6 pb-6 md:flex-row rounded-xl transition duration-150  hover:shadow-xl mt-5">
       <div className="h-64 w-auto md:w-1/2 flex align-middle">
         <img className="mx-0 sm:mx-4" src={imgUrl} />
       </div>
@@ -23,7 +23,7 @@ function CardItem({
         <a
           href={url}
           target="_blank"
-          className="text-sm text-blue-500 tracking-wide"
+          className="text-sm mt-1  text-blue-700 tracking-wide"
         >
           Read more
         </a>
