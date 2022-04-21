@@ -87,7 +87,7 @@ const Navbar = ({
               </ul>
             </div>
           </nav>
-          <div className="flex items-center border-l ml-6 pl-6 border-slate-400  dark:border-slate-100">
+          <div className="flex items-center border-l ml-6 pl-6 ">
             <button
               className="text-xl  rounded-full px-2 py-1 hover:shadow-lg hover:shadow-slate-900  dark:hover:shadow-slate-50"
               type="button"
@@ -95,7 +95,7 @@ const Navbar = ({
                 setDarkTheme(!darkTheme);
               }}
             >
-              {darkTheme ? "💡" : "🌙"}
+              {darkTheme ? "☀️" : "🌙"}
             </button>
           </div>
         </div>
