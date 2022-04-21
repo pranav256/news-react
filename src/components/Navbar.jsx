@@ -21,17 +21,17 @@ const Navbar = ({
   darkTheme,
 }) => {
   return (
-    <div className="sticky top-0  w-full backdrop-blur flex-none transition-colors duration-500  bg-white/75 supports-backdrop-blur:bg-white/10  dark:bg-transparent">
-      <div className="py-4 border-b border-slate-900/10 lg:px-8 lg:border-0 dark:border-slate-300/10 mx-4 lg:mx-0">
-        <div className="relative flex items-center ">
+    <div className="sticky top-0  w-full transition-colors duration-500 backdrop-blur bg-white/75 dark:bg-gray-800/50">
+      <div className="py-4 border-b border-slate-900/10 lg:px-8 dark:border-slate-300/10 mx-4">
+        <div className="relative flex items-center justify-between">
           <img
             src="https://img.icons8.com/fluency/48/000000/news.png"
             alt="news"
-            className="mr-2"
+            className="sm:mr-2 mr-0"
           />
 
           <nav className=" text-sm font-semibold text-slate-700 dark:text-slate-50">
-            <div className="group inline-block relative mx-2 ">
+            <div className="group inline-block relative sm:mx-2">
               <button className="text-gray-700 font-semibold inline-flex items-center dark:text-white">
                 <span className="mr-1">Category</span>
                 <svg
@@ -43,7 +43,7 @@ const Navbar = ({
                 </svg>
               </button>
 
-              <ul className="absolute hidden text-gray-700 pt-1 group-hover:block ">
+              <ul className=" absolute hidden text-gray-700 pt-1 group-hover:block ">
                 {categoryObj.map(({ text, value }, index) => (
                   <li key={index}>
                     <button
@@ -59,7 +59,7 @@ const Navbar = ({
               </ul>
             </div>
 
-            <div className="group inline-block relative mx-2">
+            <div className="group inline-block relative sm:mx-2">
               <button className="text-gray-700 font-semibold inline-flex items-center dark:text-white">
                 <span className="mr-1">Country</span>
                 <svg
@@ -87,7 +87,7 @@ const Navbar = ({
               </ul>
             </div>
           </nav>
-          <div className="flex items-center border-l ml-6 pl-6 ">
+          <div className="flex items-center border-l sm:ml-6 sm:pl-6 ">
             <button
               className="text-xl  rounded-full px-2 py-1 hover:shadow-lg hover:shadow-slate-900  dark:hover:shadow-slate-50"
               type="button"

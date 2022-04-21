@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "./components/Navbar";
 import CardHolder from "./components/CardHolder";
 
@@ -12,14 +12,23 @@ function App() {
   const [countryName, setCountryName] = useState(
     localStorage.getItem("countryName") || "India"
   );
-  const [darkTheme, setDarkTheme] = useState(
-    localStorage.getItem("darkMode") || true
-  );
+  const [darkTheme, setDarkTheme] = useState(false);
+
   const capitalizeFirstLetter = (str) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
   };
+
+  useEffect(() => {
+    const saveToLocalStorage = () => {
+      localStorage.setItem("country", country);
+      localStorage.setItem("category", category);
+      localStorage.setItem("countryName", countryName);
+    };
+    saveToLocalStorage();
+  }, [country, category, countryName]);
+
   return (
-    <div className={darkTheme ? "dark" : ""}>
+    <div className={darkTheme ? "dark" : "light"}>
       <section className="font-Poppins dark:bg-gray-800">
         <Navbar
           setCategory={setCategory}

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import CardItem from "./CardItem";
 
 import Spinner from "./Spinner";
-function CardHolder({ category, country, countryName }) {
+function CardHolder({ category, country }) {
   const [articles, setArticles] = useState([]);
   const [Loading, SetLoading] = useState(true);
 
@@ -16,13 +16,8 @@ function CardHolder({ category, country, countryName }) {
       setArticles(resp.articles);
       SetLoading(false);
     };
-    const saveToLocalStorage = () => {
-      localStorage.setItem("country", country);
-      localStorage.setItem("category", category);
-      localStorage.setItem("countryName", countryName);
-    };
+
     updatePage();
-    saveToLocalStorage();
   }, [category, country]);
 
   if (Loading) return <Spinner />;
