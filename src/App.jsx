@@ -16,7 +16,7 @@ function App() {
     return str.charAt(0).toUpperCase() + str.slice(1);
   };
   return (
-    <section className="font-Poppins bg-gray-50">
+    <section className="font-Poppins ">
       <Navbar
         setCategory={setCategory}
         setCountry={setCountry}

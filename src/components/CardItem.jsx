@@ -20,6 +20,13 @@ function CardItem({
       <div className="w-full py-4 px-6 text-gray-800 flex flex-col justify-between">
         <h3 className="font-semibold text-lg leading-tight ">{title}</h3>
         <p className="mt-1">{description}</p>
+        <a
+          href={url}
+          target="_blank"
+          className="text-sm text-blue-500 tracking-wide"
+        >
+          Read more
+        </a>
         <p className="text-sm text-gray-700 uppercase tracking-wide font-semibold mt-2">
           {site_name} &bull; {changeToLocalTime(published_time)}
         </p>

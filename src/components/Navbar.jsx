@@ -15,15 +15,15 @@ const countryObj = [
 ];
 const Navbar = ({ setCategory, setCountry, setCountryName }) => {
   return (
-    <nav className="p-2 flex flex-row align-text-bottom  bg-gray-100">
+    <nav className="p-2 flex flex-row align-text-bottom ">
       <img
         src="https://img.icons8.com/fluency/48/000000/news.png"
         alt="news"
         className="mx-2"
       />
 
-      <div className="group inline-block relative m-1">
-        <button className="bg-gray-100  text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center">
+      <div className="group inline-block relative m-1 ">
+        <button className="bg-gray-100  text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center ">
           <span className="mr-1">Category</span>
           <svg
             className="fill-current h-4 w-4"

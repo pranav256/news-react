@@ -27,7 +27,7 @@ function CardHolder({ category, country, countryName }) {
 
   if (Loading) return <Spinner />;
   return (
-    <div className="container">
+    <div>
       {articles.map((element) => {
         if (element.url === null || element.image === null) {
           return null;
