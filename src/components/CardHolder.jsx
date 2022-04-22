@@ -4,19 +4,18 @@ import CardItem from "./CardItem";
 import Spinner from "./Spinner";
 function CardHolder({ category, country }) {
   const [articles, setArticles] = useState([]);
-  const [Loading, SetLoading] = useState(true);
+  const [Loading, setLoading] = useState(true);
 
   useEffect(() => {
     const updatePage = async () => {
-      SetLoading(true);
+      setLoading(true);
       const url = `https://raw.githubusercontent.com/pranav256/news-api/main/${country}/${category}.json`;
       const data = await fetch(url);
       const resp = await data.json();
       window.scrollTo(0, 0);
       setArticles(resp.articles);
-      SetLoading(false);
+      setLoading(false);
     };
-
     updatePage();
   }, [category, country]);
 
@@ -33,9 +32,9 @@ function CardHolder({ category, country }) {
                 imgUrl={element.urlToImage}
                 title={element.title}
                 description={element.description}
-                published_time={element.publishedAt}
+                publishedTime={element.publishedAt}
                 url={element.url}
-                site_name={element.author}
+                siteName={element.author}
               ></CardItem>
             </div>
           );

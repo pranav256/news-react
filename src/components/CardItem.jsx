@@ -4,8 +4,8 @@ function CardItem({
   title,
   description,
   url,
-  published_time,
-  site_name,
+  publishedTime,
+  siteName,
 }) {
   const changeToLocalTime = (time) => {
     let date = new Date(time).toLocaleString();
@@ -22,7 +22,7 @@ function CardItem({
         <p className="mt-1">{description}</p>
 
         <p className="dark:text-white text-sm text-gray-700 uppercase tracking-wide font-semibold mt-2">
-          {site_name} &bull; {changeToLocalTime(published_time)}
+          {siteName} &bull; {changeToLocalTime(publishedTime)}
         </p>
         <a
           href={url}
