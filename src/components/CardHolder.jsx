@@ -23,7 +23,7 @@ function CardHolder({ category, country }) {
   return (
     <div>
       {articles.map((element) => {
-        if (element.url === null || element.image === null) {
+        if (element.url === null || element.urlToImage === null) {
           return null;
         } else {
           return (
