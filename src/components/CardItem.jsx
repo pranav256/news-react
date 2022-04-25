@@ -16,7 +16,7 @@ function CardItem({
     <div className="dark:bg-gray-700  bg-gray-50 mx-5 flex flex-col pt-6 pb-6 md:flex-row rounded-xl transition duration-150  hover:shadow-xl mt-5">
       <div className=" h-64 w-auto md:w-1/2 flex align-middle sm:justify-center">
         <img
-          className="mx-0 sm:mx-4 aspect-square"
+          className="mx-0 sm:mx-4 aspect-auto"
           src={imgUrl}
           loading="lazy"
           alt={title}
