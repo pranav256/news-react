@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import CardItem from "./CardItem";
-
+import { CardHolderProps, ArticlesType } from "../types";
 import Spinner from "./Spinner";
-function CardHolder({ category, country }) {
+
+function CardHolder({ category, country }: CardHolderProps) {
   const [articles, setArticles] = useState([]);
   const [Loading, setLoading] = useState(true);
 
@@ -22,19 +23,19 @@ function CardHolder({ category, country }) {
   if (Loading) return <Spinner />;
   return (
     <div>
-      {articles.map((element) => {
+      {articles.map((element: ArticlesType) => {
         if (element.url === null || element.urlToImage === null) {
           return null;
         } else {
           return (
             <div key={element.title}>
               <CardItem
-                imgUrl={element.urlToImage}
+                urlToImage={element.urlToImage}
                 title={element.title}
                 description={element.description}
-                publishedTime={element.publishedAt}
+                publishedAt={element.publishedAt}
                 url={element.url}
-                siteName={element.author}
+                author={element.author}
               ></CardItem>
             </div>
           );

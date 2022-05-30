@@ -1,3 +1,4 @@
+import { NavbarProps } from "../types";
 const categoryObj = [
   { text: "General", value: "general" },
   { text: "Business", value: "business" },
@@ -19,7 +20,7 @@ const Navbar = ({
   setCountryName,
   setDarkTheme,
   darkTheme,
-}) => {
+}: NavbarProps) => {
   return (
     <div className="sticky top-0  w-full transition-colors duration-500 backdrop-blur bg-white/75 dark:bg-gray-800/50">
       <div className="py-4 border-b border-slate-900/10 lg:px-8 dark:border-slate-300/10 mx-4">

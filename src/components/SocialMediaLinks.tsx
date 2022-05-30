@@ -1,4 +1,9 @@
-export default function SocialMediaLinks({ url, title }) {
+import { SocialMediaLinksProps } from "../types";
+
+export default function SocialMediaLinks({
+  url,
+  title,
+}: SocialMediaLinksProps) {
   return (
     <div className="flex flex-row px-6">
       <a

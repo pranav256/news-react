@@ -1,13 +1,15 @@
+import { ArticlesType } from "../types";
 import SocialMediaLinks from "./SocialMediaLinks";
+
 function CardItem({
-  imgUrl,
+  urlToImage,
   title,
   description,
+  publishedAt,
   url,
-  publishedTime,
-  siteName,
-}) {
-  const changeToLocalTime = (time) => {
+  author,
+}: ArticlesType) {
+  const changeToLocalTime = (time: Date) => {
     let date = new Date(time).toLocaleString();
     return date;
   };
@@ -17,7 +19,7 @@ function CardItem({
       <div className=" h-64 w-auto md:w-1/2 flex align-middle sm:justify-center">
         <img
           className="mx-0 sm:mx-4 aspect-auto"
-          src={imgUrl}
+          src={urlToImage}
           loading="lazy"
           alt={title}
         />
@@ -27,7 +29,7 @@ function CardItem({
         <p className="mt-1">{description}</p>
 
         <p className="dark:text-white text-sm text-gray-700 uppercase tracking-wide font-semibold mt-2">
-          {siteName} &bull; {changeToLocalTime(publishedTime)}
+          {author} &bull; {changeToLocalTime(publishedAt)}
         </p>
         <a
           href={url}

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+
 import Navbar from "./components/Navbar";
 import CardHolder from "./components/CardHolder";
 
@@ -13,7 +14,7 @@ function App() {
     localStorage.getItem("countryName") || "India"
   );
   const [darkTheme, setDarkTheme] = useState(
-    JSON.parse(localStorage.getItem("darkTheme")) || false
+    JSON.parse(localStorage.getItem("darkTheme")!) || false
   );
   useEffect(() => {
     const saveToLocalStorage = () => {
@@ -39,11 +40,7 @@ function App() {
           category.charAt(0).toUpperCase() + category.slice(1)
         } - ${countryName} `}</h1>
 
-        <CardHolder
-          country={country}
-          category={category}
-          countryName={countryName}
-        />
+        <CardHolder country={country} category={category} />
       </section>
     </div>
   );
