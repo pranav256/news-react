@@ -28,7 +28,7 @@ function App() {
 
   return (
     <div className={darkTheme ? "dark" : "light"}>
-      <section className="font-Poppins dark:bg-gray-800">
+      <section className="font-Poppins dark:bg-slate-800">
         <Navbar
           setCategory={setCategory}
           setCountry={setCountry}

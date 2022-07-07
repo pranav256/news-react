@@ -22,8 +22,8 @@ const Navbar = ({
   darkTheme,
 }: NavbarProps) => {
   return (
-    <div className="sticky top-0  w-full transition-colors duration-500 backdrop-blur bg-white/75 dark:bg-gray-800/50">
-      <div className="py-4 border-b border-slate-900/10 lg:px-8 dark:border-slate-300/10 mx-4">
+    <div className="sticky top-0 w-full transition-colors duration-500 backdrop-blur bg-white/75 dark:bg-gray-900/75">
+      <div className="py-2 border-b border-slate-900/10 lg:px-8 dark:border-slate-300/10 mx-4">
         <div className="relative flex items-center justify-between">
           <img
             src="https://img.icons8.com/fluency/48/000000/news.png"
@@ -51,7 +51,7 @@ const Navbar = ({
                       onClick={() => {
                         setCategory(value);
                       }}
-                      className="m-0.5 text-sm text-left rounded bg-gray-100 text-slate-800 hover:bg-gray-300 py-2 px-2 w-full dark:bg-slate-700 dark:text-white"
+                      className="m-0.5 text-sm text-left rounded bg-gray-100 text-slate-800 hover:bg-gray-300 py-2 px-2 w-full dark:bg-slate-800 dark:text-white"
                     >
                       {text}
                     </button>
@@ -79,7 +79,7 @@ const Navbar = ({
                         setCountry(value);
                         setCountryName(text);
                       }}
-                      className="m-0.5 text-sm text-left rounded bg-gray-100 text-slate-800 hover:bg-gray-300 py-2 px-2 w-full dark:bg-slate-700 dark:text-white"
+                      className="m-0.5 text-sm text-left rounded bg-gray-100 text-slate-800 hover:bg-gray-300 py-2 px-2 w-full dark:bg-slate-800 dark:text-white"
                     >
                       {text}
                     </button>
