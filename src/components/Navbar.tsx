@@ -22,7 +22,7 @@ const Navbar = ({
   darkTheme,
 }: NavbarProps) => {
   return (
-    <div className="sticky top-0 w-full transition-colors duration-500 backdrop-blur bg-white/75 dark:bg-gray-900/75">
+    <div className="sticky top-0 w-full transition-colors duration-500 backdrop-blur bg-white/75 dark:bg-gray-800/75">
       <div className="py-2 border-b border-slate-900/10 lg:px-8 dark:border-slate-300/10 mx-4">
         <div className="relative flex items-center justify-between">
           <img
