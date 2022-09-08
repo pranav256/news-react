@@ -14,6 +14,7 @@ const countryObj = [
   { text: 'United States', value: 'us' },
   { text: 'United Kingdom', value: 'gb' },
 ]
+
 const Navbar = ({
   setCategory,
   setCountry,
@@ -38,8 +39,7 @@ const Navbar = ({
                 <svg
                   className="fill-current h-4 w-4"
                   xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                >
+                  viewBox="0 0 20 20">
                   <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
                 </svg>
               </button>
@@ -90,7 +90,7 @@ const Navbar = ({
           </nav>
           <div className="flex items-center border-l sm:ml-6 sm:pl-6 ">
             <button
-              className="text-xl  rounded-full px-2 py-1 hover:shadow-lg hover:shadow-slate-900  dark:hover:shadow-slate-50"
+              className="text-xl rounded-full px-2 py-1 hover:shadow-lg hover:shadow-slate-900  dark:hover:shadow-slate-50"
               type="button"
               onClick={() => {
                 setDarkTheme(!darkTheme)

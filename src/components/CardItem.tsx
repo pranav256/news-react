@@ -1,15 +1,9 @@
 import { ArticlesType } from '../types'
 import SocialMediaLinks from './SocialMediaLinks'
 
-function CardItem({
-  urlToImage,
-  title,
-  description,
-  publishedAt,
-  url,
-  author,
-}: ArticlesType) {
-  const changeToLocalTime = (time: Date) => {
+const CardItem = ({urlToImage,title,description,publishedAt,url,author}: ArticlesType) =>{
+
+const changeToLocalTime = (time: Date) => {
     let date = new Date(time).toLocaleString()
     return date
   }

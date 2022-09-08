@@ -1,10 +1,10 @@
-import { Puff } from 'react-loader-spinner'
+import { TailSpin } from 'react-loader-spinner'
 
 const Loading = () => {
   return (
     <div className="flex justify-center items-center">
-      <Puff color="#00BFFF" height={550} width={80} />
-    </div>
+    <TailSpin height="550" width="80" color="#4fa94d" ariaLabel="tail-spin-loading" radius="1" />
+</div>
   )
 }
 

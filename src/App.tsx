@@ -4,18 +4,11 @@ import Navbar from './components/Navbar'
 import CardHolder from './components/CardHolder'
 
 const App = () => {
-  const [category, setCategory] = useState(
-    localStorage.getItem('category') || 'general',
-  )
-  const [country, setCountry] = useState(
-    localStorage.getItem('country') || 'in',
-  )
-  const [countryName, setCountryName] = useState(
-    localStorage.getItem('countryName') || 'India',
-  )
-  const [darkTheme, setDarkTheme] = useState(
-    JSON.parse(localStorage.getItem('darkTheme')!) || false,
-  )
+  const [category, setCategory] = useState(localStorage.getItem('category') || 'general')
+  const [country, setCountry] = useState(localStorage.getItem('country') || 'in',)
+  const [countryName, setCountryName] = useState(localStorage.getItem('countryName') || 'India')
+  const [darkTheme, setDarkTheme] = useState(JSON.parse(localStorage.getItem('darkTheme')!) || false)
+
   useEffect(() => {
     const saveToLocalStorage = () => {
       localStorage.setItem('country', country)
@@ -37,9 +30,7 @@ const App = () => {
           setDarkTheme={setDarkTheme}
         />
         <h1 className="text-center my-3 text-xl dark:text-white ">{`Showing Headlines About ${
-          category.charAt(0).toUpperCase() + category.slice(1)
-        } - ${countryName} `}</h1>
-
+        category.charAt(0).toUpperCase() + category.slice(1)} - ${countryName} `}</h1>
         <CardHolder country={country} category={category} />
       </section>
     </div>
