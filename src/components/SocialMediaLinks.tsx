@@ -1,4 +1,4 @@
-import { SocialMediaLinksProps } from "../types";
+import { SocialMediaLinksProps } from '../types'
 
 export default function SocialMediaLinks({
   url,
@@ -55,5 +55,5 @@ export default function SocialMediaLinks({
         />
       </a>
     </div>
-  );
+  )
 }

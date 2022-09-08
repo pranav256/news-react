@@ -1,19 +1,19 @@
-import { NavbarProps } from "../types";
+import { NavbarProps } from '../types'
 const categoryObj = [
-  { text: "General", value: "general" },
-  { text: "Business", value: "business" },
-  { text: "Technology", value: "technology" },
-  { text: "Entertainment", value: "entertainment" },
-  { text: "Science", value: "science" },
-  { text: "Health", value: "health" },
-  { text: "Sports", value: "sports" },
-];
+  { text: 'General', value: 'general' },
+  { text: 'Business', value: 'business' },
+  { text: 'Technology', value: 'technology' },
+  { text: 'Entertainment', value: 'entertainment' },
+  { text: 'Science', value: 'science' },
+  { text: 'Health', value: 'health' },
+  { text: 'Sports', value: 'sports' },
+]
 
 const countryObj = [
-  { text: "India", value: "in" },
-  { text: "United States", value: "us" },
-  { text: "United Kingdom", value: "gb" },
-];
+  { text: 'India', value: 'in' },
+  { text: 'United States', value: 'us' },
+  { text: 'United Kingdom', value: 'gb' },
+]
 const Navbar = ({
   setCategory,
   setCountry,
@@ -49,7 +49,7 @@ const Navbar = ({
                   <li key={index}>
                     <button
                       onClick={() => {
-                        setCategory(value);
+                        setCategory(value)
                       }}
                       className="m-0.5 text-sm text-left rounded bg-gray-100 text-slate-800 hover:bg-gray-300 py-2 px-2 w-full dark:bg-slate-800 dark:text-white"
                     >
@@ -76,8 +76,8 @@ const Navbar = ({
                   <li key={index}>
                     <button
                       onClick={() => {
-                        setCountry(value);
-                        setCountryName(text);
+                        setCountry(value)
+                        setCountryName(text)
                       }}
                       className="m-0.5 text-sm text-left rounded bg-gray-100 text-slate-800 hover:bg-gray-300 py-2 px-2 w-full dark:bg-slate-800 dark:text-white"
                     >
@@ -93,16 +93,16 @@ const Navbar = ({
               className="text-xl  rounded-full px-2 py-1 hover:shadow-lg hover:shadow-slate-900  dark:hover:shadow-slate-50"
               type="button"
               onClick={() => {
-                setDarkTheme(!darkTheme);
+                setDarkTheme(!darkTheme)
               }}
             >
-              {darkTheme ? "☀️" : "🌙"}
+              {darkTheme ? '☀️' : '🌙'}
             </button>
           </div>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar

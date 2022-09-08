@@ -1,5 +1,5 @@
-import { ArticlesType } from "../types";
-import SocialMediaLinks from "./SocialMediaLinks";
+import { ArticlesType } from '../types'
+import SocialMediaLinks from './SocialMediaLinks'
 
 function CardItem({
   urlToImage,
@@ -10,9 +10,9 @@ function CardItem({
   author,
 }: ArticlesType) {
   const changeToLocalTime = (time: Date) => {
-    let date = new Date(time).toLocaleString();
-    return date;
-  };
+    let date = new Date(time).toLocaleString()
+    return date
+  }
 
   return (
     <div className="dark:bg-gray-900  bg-gray-200 p-2 mx-5 flex flex-col pt-6 pb-6 md:flex-row rounded-xl transition duration-150  hover:shadow-xl mt-5">
@@ -41,7 +41,7 @@ function CardItem({
       </div>
       <SocialMediaLinks title={title} url={url} />
     </div>
-  );
+  )
 }
 
-export default CardItem;
+export default CardItem
