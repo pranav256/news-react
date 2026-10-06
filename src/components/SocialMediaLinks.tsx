@@ -1,59 +1,6 @@
-import { SocialMediaLinksProps } from '../types'
-
-export default function SocialMediaLinks({
-  url,
-  title,
-}: SocialMediaLinksProps) {
-  return (
-    <div className="flex flex-row px-6">
-      <a
-        title="Share on Twitter"
-        target="_blank"
-        rel="noopener noreferrer"
-        href={`https://twitter.com/intent/tweet?url=${url}`}
-      >
-        <img
-          className="p-1"
-          src="https://img.icons8.com/fluency/50/000000/twitter.png"
-          alt="Share on Twitter"
-        />
-      </a>
-      <a
-        title="Share on Telegram"
-        target="_blank"
-        rel="noopener noreferrer"
-        href={`https://telegram.me/share/url?url=${url}&text=${title}`}
-      >
-        <img
-          className="p-1"
-          src="https://img.icons8.com/fluency/48/000000/telegram-app.png"
-          alt="Share on Telegram"
-        />
-      </a>
-      <a
-        title="Share on Facebook"
-        target="_blank"
-        rel="noopener noreferrer"
-        href={`https://www.facebook.com/sharer.php?u=${url}&amp;text=${title}`}
-      >
-        <img
-          className="p-1"
-          src="https://img.icons8.com/fluency/48/000000/facebook-new.png"
-          alt="Share on Facebook"
-        />
-      </a>
-      <a
-        target="_blank"
-        title="Share on WhatsApp"
-        rel="noopener noreferrer"
-        href={`whatsapp://send?text=${url}`}
-      >
-        <img
-          className="p-1"
-          src="https://img.icons8.com/fluency/48/000000/whatsapp.png"
-          alt="Share on WhatsApp"
-        />
-      </a>
-    </div>
-  )
+import { Button } from '@/components/ui/button'
+export default function SocialMediaLinks({ url, title }: { url: string; title: string }) {
+  const encoded = encodeURIComponent(url)
+  const links = { Twitter: `https://twitter.com/intent/tweet?url=${encoded}&text=${encodeURIComponent(title)}`, Telegram: `https://telegram.me/share/url?url=${encoded}&text=${encodeURIComponent(title)}`, Facebook: `https://www.facebook.com/sharer.php?u=${encoded}`, WhatsApp: `https://wa.me/?text=${encodeURIComponent(`${title} ${url}`)}` }
+  return <div className="reader-actions" aria-label="Share story">{Object.entries(links).map(([label, href]) => <Button key={label} asChild variant="outline"><a href={href} target="_blank" rel="noopener noreferrer">{label}</a></Button>)}</div>
 }
