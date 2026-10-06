@@ -10,7 +10,7 @@ test('editorial layout, fonts and dialog controls fit the supported viewports', 
     await page.goto('/demo')
     await page.evaluate(() => localStorage.setItem('news-reader:preferences:v1', JSON.stringify({ country: 'in', category: 'general', theme: 'light' })))
     await page.reload()
-    await page.getByRole('button', { name: 'A community garden makes room for a new season', exact: true }).waitFor()
+    await page.getByRole('link', { name: 'A community garden makes room for a new season', exact: true }).waitFor()
     const fonts = await page.evaluate(async () => {
       await document.fonts.load('400 16px Inter')
       await document.fonts.ready

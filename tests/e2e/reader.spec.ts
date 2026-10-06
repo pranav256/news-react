@@ -1,20 +1,22 @@
 import { expect, test } from '@playwright/test'
 
-test('demo reader supports discovery, preview, save, and the reading queue', async ({ page }) => {
+test('demo reader opens publishers, saves stories, and supports the reading list', async ({ page }) => {
   const requests: string[] = []
   page.on('request', (request) => { if (/raw\.githubusercontent\.com|\/api\//.test(request.url())) requests.push(request.url()) })
   await page.goto('/demo')
   await expect(page.getByRole('heading', { name: 'Top stories' })).toBeVisible()
   await expect(page.getByText('Demo. Fictional stories and browser-local saved reading.')).toBeVisible()
 
-  await page.getByRole('button', { name: 'A community garden makes room for a new season', exact: true }).click()
-  await expect(page.getByRole('dialog')).toContainText('A community garden makes room for a new season')
-  await page.getByRole('dialog').getByRole('button', { name: 'Save story' }).click()
-  await page.getByRole('button', { name: 'Close' }).click()
+  const headline = page.getByRole('link', { name: 'A community garden makes room for a new season', exact: true })
+  await expect(headline).toHaveAttribute('href', 'https://example.com/in/sample-story-0')
+  await expect(headline).toHaveAttribute('target', '_blank')
+  await page.getByRole('button', { name: 'Save story: A community garden makes room for a new season', exact: true }).click()
 
   await page.getByRole('button', { name: 'Saved reading' }).click()
   await expect(page.getByRole('heading', { name: 'Saved reading' })).toBeVisible()
-  await expect(page.getByText('A community garden makes room for a new season')).toBeVisible()
+  const savedHeadline = page.getByRole('link', { name: 'A community garden makes room for a new season', exact: true })
+  await expect(savedHeadline).toBeVisible()
+  await expect(savedHeadline).toHaveAttribute('href', 'https://example.com/in/sample-story-0')
   await page.getByRole('button', { name: 'Mark read', exact: true }).click()
   await page.reload()
   await expect(page.getByRole('button', { name: 'Mark unread', exact: true })).toBeVisible()

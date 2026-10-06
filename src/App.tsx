@@ -7,6 +7,7 @@ import FeedDetails from './components/FeedDetails'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { NativeSelect } from '@/components/ui/native-select'
+import { CancelIcon, SearchIcon } from '@/components/icons'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { useFeed } from '@/hooks/useFeed'
 import { categories, countries, filterArticles, type Article } from '@/lib/feed'
@@ -23,6 +24,7 @@ export default function App() {
   const [saved, setSaved] = useState(() => parseLibrary(readStorage(libraryKey)))
   const [notice, setNotice] = useState('')
   const [filtersOpen, setFiltersOpen] = useState(false)
+  const filterTrigger = useRef<HTMLButtonElement>(null)
   const feed = useFeed(location.country, location.category, demo)
   const navigate = (changes: Partial<ReaderLocation>, replace = false) => {
     const next = { ...locationRef.current, ...changes }
@@ -53,28 +55,41 @@ export default function App() {
   const articles = filterArticles(feed.feed?.articles || [], location.query, location.source, location.order)
   const selected = [...(feed.feed?.articles || []), ...saved.map((item) => item.article)].find((article) => article.id === location.article)
   const sources = [...new Set((feed.feed?.articles || []).map((article) => article.source.name))].sort()
+  const activeFilterCount = [location.query, location.source, location.order !== 'newest' ? location.order : ''].filter(Boolean).length
   return <div className="reader-shell">
     <a className="skip-link" href="#main">Skip to stories</a>
-    <Navbar view={location.view} onView={(view) => navigate({ view, query: '', source: '', article: '' })} onDetails={() => navigate({ details: true })} />
+    <Navbar savedCount={saved.length} view={location.view} theme={theme} onTheme={() => setTheme(theme === 'light' ? 'dark' : 'light')} onView={(view) => navigate({ view, query: '', source: '', article: '' })} onDetails={() => navigate({ details: true })} />
     <main id="main" className="reader-main" tabIndex={-1}>
       <header className="reader-header">
-        <div><h1>{location.view === 'saved' ? 'Saved reading' : 'Top stories'}</h1><p>{demo ? 'Demo. Fictional stories and browser-local saved reading.' : location.view === 'saved' ? 'Your browser-local reading queue.' : `${countries[location.country]}. ${location.category === 'general' ? 'General' : location.category[0].toUpperCase() + location.category.slice(1)} headlines.`}</p></div>
-        <Button variant="outline" onClick={() => setFiltersOpen(true)}>Filters</Button>
+        <div><h1>{location.view === 'saved' ? 'Saved reading' : 'Top stories'}</h1><p>{demo ? 'Demo. Fictional stories and browser-local saved reading.' : location.view === 'saved' ? 'Stories you saved in this browser.' : `${countries[location.country]}. ${location.category === 'general' ? 'General' : location.category[0].toUpperCase() + location.category.slice(1)} headlines.`}</p></div>
+        {location.view === 'headlines' && <Button ref={filterTrigger} variant="outline" aria-label="Filters" onClick={() => setFiltersOpen(true)}>Filters{activeFilterCount > 0 && <span className="filter-count" aria-label={`${activeFilterCount} active filters`}>{activeFilterCount}</span>}</Button>}
       </header>
       {notice && <p role="alert" className="reader-notice">{notice}</p>}
-      {location.view === 'headlines' ? <CardHolder articles={articles} loading={feed.loading} error={feed.error} cached={feed.cached} saved={saved} onPreview={(article) => navigate({ article: article.id })} onSave={toggleSave} onRetry={feed.retry} onClear={() => navigate({ query: '', source: '' })} filtered={!!(location.query || location.source)} /> :
-        <ReadingQueue saved={saved} query={location.query} read={location.read} onQuery={(query) => navigate({ query }, true)} onReadFilter={(read) => navigate({ read })} onPreview={(article) => navigate({ article: article.id })} onRead={markRead} onRemove={(id) => updateSaved(saved.filter((item) => item.article.id !== id))} onImport={(incoming) => updateSaved(mergeLibrary(saved, incoming))} onDiscover={() => navigate({ view: 'headlines', query: '', source: '' })} />}
-      <Dialog open={filtersOpen} onOpenChange={setFiltersOpen}><DialogContent className="reader-dialog"><DialogHeader><DialogTitle>Reader filters</DialogTitle><DialogDescription>Choose the stories you want to see.</DialogDescription></DialogHeader>
+      {location.view === 'headlines' ? <>
+        <div className="reader-toolbar" aria-label="Story controls">
+          <label className="reader-search"><SearchIcon aria-hidden="true" /><Input type="search" aria-label="Find headlines" placeholder="Search headlines" value={location.query} maxLength={200} onChange={(event) => navigate({ query: event.target.value }, true)} /></label>
+          <div className="reader-toolbar-selects">
+            <label>Region<NativeSelect aria-label="Region" value={location.country} onChange={(event) => navigate({ country: event.target.value as ReaderLocation['country'], source: '', article: '' })}>{Object.entries(countries).map(([code, name]) => <option key={code} value={code}>{name}</option>)}</NativeSelect></label>
+            <label>Section<NativeSelect aria-label="Section" value={location.category} onChange={(event) => navigate({ category: event.target.value as ReaderLocation['category'], source: '', article: '' })}>{categories.map((category) => <option key={category} value={category}>{category[0].toUpperCase() + category.slice(1)}</option>)}</NativeSelect></label>
+          </div>
+        </div>
+        <div className="reader-list-context"><p className="reader-result-count" role="status">{feed.loading && !feed.feed ? 'Loading stories…' : `${articles.length} ${articles.length === 1 ? 'story' : 'stories'}`}</p><div className="reader-active-filters">
+          {location.source && <Button variant="outline" onClick={() => navigate({ source: '' })} aria-label={`Remove source filter: ${location.source}`}>{location.source}<CancelIcon className="size-4" aria-hidden="true" /></Button>}
+          {location.order === 'oldest' && <Button variant="outline" onClick={() => navigate({ order: 'newest' })} aria-label="Reset to newest first">Oldest first<CancelIcon className="size-4" aria-hidden="true" /></Button>}
+          {location.query && <Button variant="ghost" onClick={() => navigate({ query: '' }, true)}>Clear search</Button>}
+        </div></div>
+        <CardHolder articles={articles} loading={feed.loading} error={feed.error} cached={feed.cached} saved={saved} onSave={toggleSave} onRetry={feed.retry} onClear={() => navigate({ query: '', source: '' })} filtered={!!(location.query || location.source)} />
+      </> :
+        <ReadingQueue saved={saved} query={location.query} read={location.read} onQuery={(query) => navigate({ query }, true)} onReadFilter={(read) => navigate({ read })} onRead={markRead} onRemove={(id) => updateSaved(saved.filter((item) => item.article.id !== id))} onImport={(incoming) => updateSaved(mergeLibrary(saved, incoming))} onDiscover={() => navigate({ view: 'headlines', query: '', source: '' })} />}
+      <Dialog open={filtersOpen} onOpenChange={setFiltersOpen}><DialogContent className="reader-dialog" onCloseAutoFocus={(event) => { event.preventDefault(); filterTrigger.current?.focus() }}><DialogHeader><DialogTitle>Reader filters</DialogTitle><DialogDescription>Choose the stories you want to see.</DialogDescription></DialogHeader>
         <div className="reader-fields">
-          <label>Country<NativeSelect value={location.country} onChange={(event) => navigate({ country: event.target.value as ReaderLocation['country'], source: '', article: '' })}>{Object.entries(countries).map(([code, name]) => <option key={code} value={code}>{name}</option>)}</NativeSelect></label>
-          <label>Category<NativeSelect value={location.category} onChange={(event) => navigate({ category: event.target.value as ReaderLocation['category'], source: '', article: '' })}>{categories.map((category) => <option key={category} value={category}>{category[0].toUpperCase() + category.slice(1)}</option>)}</NativeSelect></label>
           <label>Search stories<Input type="search" value={location.query} maxLength={200} onChange={(event) => navigate({ query: event.target.value }, true)} /></label>
           <label>Source<NativeSelect value={location.source} onChange={(event) => navigate({ source: event.target.value })}><option value="">All sources</option>{sources.map((source) => <option key={source}>{source}</option>)}</NativeSelect></label>
           <label>Order<NativeSelect value={location.order} onChange={(event) => navigate({ order: event.target.value as ReaderLocation['order'] })}><option value="newest">Newest first</option><option value="oldest">Oldest first</option></NativeSelect></label>
           <label>Appearance<NativeSelect value={theme} onChange={(event) => setTheme(event.target.value as 'light' | 'dark')}><option value="light">Light</option><option value="dark">Dark</option></NativeSelect></label>
         </div><Button onClick={() => setFiltersOpen(false)}>Show stories</Button>
       </DialogContent></Dialog>
-      <ArticleDialog article={selected} requested={!!location.article} loading={feed.loading} onClose={() => navigate({ article: '' })} saved={selected ? saved.find((item) => item.article.id === selected.id) : undefined} onSave={toggleSave} onRead={markRead} demo={demo} />
+      <ArticleDialog article={selected} requested={!!location.article} loading={feed.loading} onClose={() => navigate({ article: '' })} onReturnFocus={() => document.getElementById('main')?.focus({ preventScroll: true })} saved={selected ? saved.find((item) => item.article.id === selected.id) : undefined} onSave={toggleSave} onRead={markRead} demo={demo} />
       <FeedDetails open={location.details} onClose={() => navigate({ details: false })} feed={feed.feed} country={location.country} category={location.category} demo={demo} onRefresh={feed.retry} />
     </main>
   </div>
