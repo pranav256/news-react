@@ -34,6 +34,14 @@ describe('feed contracts', () => {
     expect(parseStatus({ status: 'partial', rss_feeds_failed: 3 }).generated_at).toBeNull()
     expect(parseStatus({ status: 'partial', rss_feeds_failed: 3 }).rss_feeds_failed).toBe(3)
   })
+  it('bounds untrusted provider metadata and keeps equal-date ordering stable', () => {
+    const providers = Array.from({ length: 40 }, (_, index) => `provider-${index}`)
+    const result = parseFeed({ articles: [{ ...raw, url: 'https://example.com/b' }, { ...raw, url: 'https://example.com/a' }], providers })
+    expect(result.providers).toHaveLength(20)
+    expect(filterArticles(result.articles, '', '', 'newest').map((item) => item.id)).toEqual(['https://example.com/a', 'https://example.com/b'])
+    const status = parseStatus({ status: 'ok', feeds: [{ country: 'in', category: 'general', status: 'updated', providers }] })
+    expect(status.feeds[0].providers).toHaveLength(20)
+  })
 })
 describe('local reading data', () => {
   it('recovers from corrupt and unsupported preferences', () => {

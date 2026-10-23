@@ -80,7 +80,7 @@ export default function App() {
         </div></div>
         <CardHolder articles={articles} loading={feed.loading} error={feed.error} cached={feed.cached} saved={saved} onSave={toggleSave} onRetry={feed.retry} onClear={() => navigate({ query: '', source: '' })} filtered={!!(location.query || location.source)} />
       </> :
-        <ReadingQueue saved={saved} query={location.query} read={location.read} onQuery={(query) => navigate({ query }, true)} onReadFilter={(read) => navigate({ read })} onRead={markRead} onRemove={(id) => updateSaved(saved.filter((item) => item.article.id !== id))} onImport={(incoming) => updateSaved(mergeLibrary(saved, incoming))} onDiscover={() => navigate({ view: 'headlines', query: '', source: '' })} />}
+        <ReadingQueue saved={saved} query={location.query} read={location.read} onQuery={(query) => navigate({ query }, true)} onReadFilter={(read) => navigate({ read })} onRead={markRead} onPreview={(id) => navigate({ article: id })} onRemove={(id) => updateSaved(saved.filter((item) => item.article.id !== id))} onImport={(incoming) => updateSaved(mergeLibrary(saved, incoming))} onDiscover={() => navigate({ view: 'headlines', query: '', source: '' })} />}
       <Dialog open={filtersOpen} onOpenChange={setFiltersOpen}><DialogContent className="reader-dialog" onCloseAutoFocus={(event) => { event.preventDefault(); filterTrigger.current?.focus() }}><DialogHeader><DialogTitle>Reader filters</DialogTitle><DialogDescription>Choose the stories you want to see.</DialogDescription></DialogHeader>
         <div className="reader-fields">
           <label>Search stories<Input type="search" value={location.query} maxLength={200} onChange={(event) => navigate({ query: event.target.value }, true)} /></label>

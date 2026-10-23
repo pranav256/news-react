@@ -14,6 +14,6 @@ export default function CardItem({ article, featured, saved, onSave }: Props) {
       {article.description && <p className="story-summary">{article.description}</p>}
       <div className="story-footer"><Button variant={saved ? 'secondary' : 'ghost'} className="story-save" aria-pressed={saved} onClick={() => onSave(article)} aria-label={`${saved ? 'Remove saved' : 'Save'} story: ${article.title}`} title={saved ? 'Remove from saved reading' : 'Save for later'}><BookmarkIcon className="size-4" aria-hidden="true" />{saved ? 'Saved' : 'Save'}</Button></div>
     </div>
-    {article.urlToImage && !imageFailed && <img src={article.urlToImage} alt="" loading={featured ? 'eager' : 'lazy'} referrerPolicy="no-referrer" onError={() => setImageFailed(true)} className="story-image" />}
+    {article.urlToImage && !imageFailed && <img src={article.urlToImage} alt="" loading={featured ? 'eager' : 'lazy'} decoding="async" width={800} height={600} referrerPolicy="no-referrer" onError={() => setImageFailed(true)} className="story-image" />}
   </Surface>
 }

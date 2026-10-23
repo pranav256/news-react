@@ -61,7 +61,7 @@ export function parseFeed(value: unknown): Feed {
     return [article]
   })
   if (value.articles.length && !articles.length) throw new Error('The feed did not contain readable stories.')
-  return { articles, fetchedAt: validDate(value.fetched_at), providers: Array.isArray(value.providers) ? value.providers.filter((x): x is string => typeof x === 'string') : [] }
+  return { articles, fetchedAt: validDate(value.fetched_at), providers: Array.isArray(value.providers) ? value.providers.filter((x): x is string => typeof x === 'string').slice(0, 20) : [] }
 }
 export function parseStatus(value: unknown): PipelineStatus {
   if (!isRecord(value)) throw new Error('Feed status is unavailable.')
@@ -71,7 +71,7 @@ export function parseStatus(value: unknown): PipelineStatus {
     return [{ country: item.country, category: item.category, status: item.status as FeedOutcome['status'],
       last_successful_refresh: validDate(item.last_successful_refresh),
       articles_count: typeof item.articles_count === 'number' && Number.isSafeInteger(item.articles_count) && item.articles_count >= 0 ? item.articles_count : null,
-      providers: Array.isArray(item.providers) ? item.providers.filter((x): x is string => typeof x === 'string') : [] }]
+      providers: Array.isArray(item.providers) ? item.providers.filter((x): x is string => typeof x === 'string').slice(0, 20) : [] }]
   }) : []
   return { generated_at: validDate(value.generated_at), status: text(value.status, 30) || 'unknown',
     newsapi_requests_used: count('newsapi_requests_used'), newsapi_requests_allowed: count('newsapi_requests_allowed'),
@@ -101,5 +101,8 @@ export function filterArticles(articles: Article[], query: string, source: strin
   const needle = query.trim().toLocaleLowerCase()
   return articles.filter((article) => (!source || article.source.name === source) &&
     (!needle || [article.title, article.description, article.author, article.source.name].join(' ').toLocaleLowerCase().includes(needle)))
-    .sort((a, b) => ((Date.parse(b.publishedAt || '') || 0) - (Date.parse(a.publishedAt || '') || 0)) * (order === 'newest' ? 1 : -1))
+    .sort((a, b) => {
+      const dateDelta = ((Date.parse(b.publishedAt || '') || 0) - (Date.parse(a.publishedAt || '') || 0)) * (order === 'newest' ? 1 : -1)
+      return dateDelta || a.id.localeCompare(b.id)
+    })
 }
