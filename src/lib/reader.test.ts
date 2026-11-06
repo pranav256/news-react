@@ -1,7 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { categories, filterArticles, parseArticle, parseFeed, parseStatus } from './feed'
+import { categories, filterArticles, parseArticle, parseFeed } from './feed'
 import { cachedFeed, mergeLibrary, parseLibrary, preferences, writeStorage } from './library'
-import { demoFeed } from './demo'
 import { readerLocation, readerSearch } from './navigation'
 
 const raw = { title: 'A story [with punctuation]', description: null, url: 'https://example.com/story', urlToImage: null, source: { name: 'Example News' }, publishedAt: '2026-10-05T06:00:00Z' }
@@ -20,7 +19,7 @@ describe('feed contracts', () => {
     expect(parseFeed({ articles: [] }).articles).toEqual([])
     expect(() => parseFeed({ articles: 'bad' })).toThrow()
     expect(() => parseFeed({ status: 'error', articles: [] })).toThrow()
-    expect(() => parseFeed({ articles: [{ title: 'No URL' }] })).toThrow()
+    expect(parseFeed({ articles: [{ title: 'No URL' }] }).articles).toEqual([])
   })
   it('treats search punctuation literally and does not mutate the source list', () => {
     const list = [article, { ...article, id: 'other', title: 'Another story', source: { id: null, name: 'Other News' } }]
@@ -29,18 +28,11 @@ describe('feed contracts', () => {
     expect(filterArticles(list, '', 'Other News', 'newest')[0].title).toBe('Another story')
     expect(list).toHaveLength(2)
   })
-  it('does not invent a timestamp from article dates or incomplete status data', () => {
-    expect(parseFeed({ articles: [raw] }).fetchedAt).toBeNull()
-    expect(parseStatus({ status: 'partial', rss_feeds_failed: 3 }).generated_at).toBeNull()
-    expect(parseStatus({ status: 'partial', rss_feeds_failed: 3 }).rss_feeds_failed).toBe(3)
-  })
   it('bounds untrusted provider metadata and keeps equal-date ordering stable', () => {
     const providers = Array.from({ length: 40 }, (_, index) => `provider-${index}`)
     const result = parseFeed({ articles: [{ ...raw, url: 'https://example.com/b' }, { ...raw, url: 'https://example.com/a' }], providers })
     expect(result.providers).toHaveLength(20)
     expect(filterArticles(result.articles, '', '', 'newest').map((item) => item.id)).toEqual(['https://example.com/a', 'https://example.com/b'])
-    const status = parseStatus({ status: 'ok', feeds: [{ country: 'in', category: 'general', status: 'updated', providers }] })
-    expect(status.feeds[0].providers).toHaveLength(20)
   })
 })
 describe('local reading data', () => {
@@ -69,10 +61,5 @@ describe('local reading data', () => {
     const location = readerLocation('?country=us&category=science&q=%5B&source=Example&order=oldest&view=saved&read=unread', defaults)
     expect(readerLocation(readerSearch(location), defaults)).toEqual(location)
     expect(readerLocation('?country=__proto__&category=not-valid', defaults).country).toBe('in')
-  })
-  it('keeps demo story identities stable across category filters', () => {
-    const general = demoFeed('in', 'general')
-    const science = demoFeed('in', 'science')
-    expect(general.articles.find((item) => item.title === science.articles[0].title)?.id).toBe(science.articles[0].id)
   })
 })

@@ -1,11 +1,1 @@
-export const formFieldBase = [
-  "w-full bg-card/80 backdrop-blur",
-  "border border-border rounded-2xl",
-  "px-4 py-3 text-sm text-foreground",
-  "placeholder:text-muted-foreground",
-  "shadow-[var(--shadow-xs)]",
-  "transition-[box-shadow,border-color,background] duration-150 ease-out",
-  "[@media(hover:hover)_and_(pointer:fine)]:hover:bg-card",
-  "focus-visible:outline-none focus-visible:border-primary/40 focus-visible:shadow-[var(--shadow-sm)]",
-  "disabled:cursor-not-allowed disabled:opacity-50",
-].join(" ");
+export const formFieldBase = 'w-full min-w-0 rounded-md border border-input bg-transparent px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-2 focus:outline-primary focus:outline-offset-2 disabled:opacity-50';

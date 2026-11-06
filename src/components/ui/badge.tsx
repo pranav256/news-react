@@ -3,21 +3,15 @@ import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
 
-// Airbnb Badge — extracted from airbnb.com (2026-04)
-// "Guest favorite" badge: white text, semi-transparent dark bg, rounded-full, px-2
-// Default badges: pill shape, light bg, medium weight text
 
 const badgeVariants = cva(
   "inline-flex items-center justify-center rounded-full font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
   {
     variants: {
       variant: {
-        // Guest favorite — white on dark overlay
-        default: "bg-foreground text-background",
-        // Light subtle — Airbnb's category pills
-        secondary: "bg-muted text-foreground border border-border",
-        // Rausch accent
-        primary: "bg-primary text-primary-foreground",
+                default: "bg-foreground text-background",
+                secondary: "bg-muted text-foreground border border-border",
+                primary: "bg-primary text-primary-foreground",
         destructive: "bg-destructive text-destructive-foreground",
         "destructive-light": "bg-destructive/10 text-destructive",
         success: "bg-emerald-600 text-white",

@@ -1,44 +1,67 @@
-import { expect, test } from '@playwright/test'
+import { expect, test } from '@playwright/test';
 
-test('demo reader opens publishers, saves stories, and supports the reading list', async ({ page }) => {
-  const requests: string[] = []
-  page.on('request', (request) => { if (/raw\.githubusercontent\.com|\/api\//.test(request.url())) requests.push(request.url()) })
-  await page.goto('/demo')
-  await expect(page.getByRole('heading', { name: 'Top stories' })).toBeVisible()
-  await expect(page.getByText('Demo. Fictional stories and browser-local saved reading.')).toBeVisible()
+test('demo reader opens publishers, saves stories, and supports the reading list', async ({
+  page,
+}) => {
+  const requests: string[] = [];
+  page.on('request', (request) => {
+    if (/raw\.githubusercontent\.com|\/api\//.test(request.url())) requests.push(request.url());
+  });
+  await page.goto('/demo');
+  await expect(page.getByRole('heading', { name: 'Top stories' })).toBeVisible();
+  await expect(
+    page.getByText('Demo. Fictional stories and browser-local saved reading.'),
+  ).toBeVisible();
 
-  const headline = page.getByRole('link', { name: 'A community garden makes room for a new season', exact: true })
-  await expect(headline).toHaveAttribute('href', 'https://example.com/in/sample-story-0')
-  await expect(headline).toHaveAttribute('target', '_blank')
-  await page.getByRole('button', { name: 'Save story: A community garden makes room for a new season', exact: true }).click()
+  const headline = page.getByRole('link', {
+    name: 'A community garden makes room for a new season',
+    exact: true,
+  });
+  await expect(headline).toHaveAttribute('href', 'https://example.com/in/sample-story-0');
+  await expect(headline).toHaveAttribute('target', '_blank');
+  await page
+    .getByRole('button', {
+      name: 'Save story: A community garden makes room for a new season',
+      exact: true,
+    })
+    .click();
 
-  await page.getByRole('button', { name: 'Saved reading' }).click()
-  await expect(page.getByRole('heading', { name: 'Saved reading' })).toBeVisible()
-  const savedHeadline = page.getByRole('link', { name: 'A community garden makes room for a new season', exact: true })
-  await expect(savedHeadline).toBeVisible()
-  await expect(savedHeadline).toHaveAttribute('href', 'https://example.com/in/sample-story-0')
-  await page.getByRole('button', { name: 'Mark read', exact: true }).click()
-  await page.reload()
-  await expect(page.getByRole('button', { name: 'Mark unread', exact: true })).toBeVisible()
-  await page.getByLabel('Search saved stories').fill('[')
-  await expect(page.getByRole('heading', { name: 'No matching saved stories' })).toBeVisible()
-  await page.getByRole('button', { name: 'Clear queue filters' }).click()
-  await expect(page.getByText('A community garden makes room for a new season')).toBeVisible()
-  expect(requests).toEqual([])
-})
+  await page.getByRole('button', { name: 'Saved reading' }).click();
+  await expect(page.getByRole('heading', { name: 'Your reading list.' })).toBeVisible();
+  const savedHeadline = page.getByRole('link', {
+    name: 'A community garden makes room for a new season',
+    exact: true,
+  });
+  await expect(savedHeadline).toBeVisible();
+  await expect(savedHeadline).toHaveAttribute('href', 'https://example.com/in/sample-story-0');
+  await page.getByRole('button', { name: 'Mark read', exact: true }).click();
+  await page.reload();
+  await expect(page.getByRole('button', { name: 'Mark unread', exact: true })).toBeVisible();
+  await page.getByLabel('Search saved stories').fill('[');
+  await expect(page.getByRole('heading', { name: 'No matching saved stories' })).toBeVisible();
+  await page.getByRole('button', { name: 'Clear saved filters' }).click();
+  await expect(page.getByText('A community garden makes room for a new season')).toBeVisible();
+  expect(requests).toEqual([]);
+});
 
 test('invalid import is visible and leaves the saved queue intact', async ({ page }) => {
-  await page.goto('/demo?view=saved')
-  await page.getByRole('button', { name: 'Manage queue' }).click()
-  await page.getByLabel('Reading queue export').setInputFiles({ name: 'invalid.json', mimeType: 'application/json', buffer: Buffer.from('{"version":1,"articles":[{"read":false}]}') })
-  await expect(page.getByRole('status')).toContainText('Choose a valid News Reader export.')
-})
+  await page.goto('/demo?view=saved');
+  await page.getByRole('button', { name: 'Manage saved stories' }).click();
+  await page
+    .getByLabel('Saved stories export')
+    .setInputFiles({
+      name: 'invalid.json',
+      mimeType: 'application/json',
+      buffer: Buffer.from('{"version":1,"articles":[{"read":false}]}'),
+    });
+  await expect(page.getByRole('status')).toContainText('Choose a valid saved-stories export.');
+});
 
 test('demo filters are keyboard reachable on a narrow viewport', async ({ page }) => {
-  await page.goto('/demo')
-  await page.getByRole('button', { name: 'Filters' }).focus()
-  await expect(page.getByRole('button', { name: 'Filters' })).toBeFocused()
-  await page.keyboard.press('Enter')
-  await expect(page.getByRole('dialog')).toContainText('Reader filters')
-  await expect(page.getByLabel('Search stories')).toBeVisible()
-})
+  await page.goto('/demo');
+  await page.getByRole('button', { name: 'Filters' }).focus();
+  await expect(page.getByRole('button', { name: 'Filters' })).toBeFocused();
+  await page.keyboard.press('Enter');
+  await expect(page.getByRole('dialog')).toContainText('Reader filters');
+  await expect(page.getByRole('dialog').getByLabel('Search stories')).toBeVisible();
+});

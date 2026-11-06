@@ -1,86 +1,60 @@
-# News Reader
+# 24x7
 
-An editorial reader for the sibling `news-api` static feeds, with a bounded
-browser-local reading queue and a credential-free fictional demo.
+A text-led news reader for [the public news-api feeds](https://github.com/pranav256/news-api). Read the live edition, preview publisher summaries, and keep a reading list in this browser.
 
-## Run
+[Live reader](https://24x7.vercel.app) | [API playground](https://news-api-live.vercel.app)
 
-Requires Node 22.12+ and npm.
+## Development
+
+Node.js 22.12 or later and npm are required.
 
 ```sh
 npm ci
 npm run dev
 ```
 
-Open `/` for live headlines or `/demo` for fictional samples. The demo never
-requests the live news pipeline; its saved queue is separate from live reading.
-Copy `.env.example` to `.env` to select a different static JSON origin.
+## Verification
 
 ```sh
 npm run check
-READER_TEST_SERVER=preview npm run test:e2e
-npm run preview
+npx playwright install chromium
+npm run test:e2e
 ```
 
-The production-preview browser checks use the build produced by `check`, one
-worker and isolated Chromium contexts. Install the test binary if needed with
-`npx playwright install chromium`. Development mode remains available when
-`READER_TEST_SERVER` is unset. Deploy the `dist/` output with an SPA rewrite to
-`index.html`, including `/demo` and query-bearing routes.
+For browser checks against the production build, set READER_TEST_SERVER to preview before running test:e2e. PowerShell: `$env:READER_TEST_SERVER = 'preview'`.
 
-## Delivered flows
+## Reading
 
-- Country/category selection, literal search, source filters and chronological
-  ordering. Filters, queue state and article previews are represented in the URL
-  and work with browser Back/Forward.
-- Readable stories stay available without images; broken images recover to text.
-- Preview the feed's supplied summary, open the complete article at its publisher,
-  or share the publisher URL. The demo does not invent full article content.
-- Save up to 300 stories, mark read/unread, search the queue, remove stories,
-  export JSON and merge validated imports (maximum 2 MB). Duplicates retain the
-  existing reading state. Storage errors are visible and export remains available.
-- Cancel superseded requests, enforce a 15-second deadline, offer retry, and keep
-  last-successful feed data in browser storage or memory when a refresh fails.
-- Inspect actual provider names, successful refresh times, API request usage and
-  per-feed updated/retained outcomes. Missing metadata is shown as unavailable.
+- Select India, the United States or the United Kingdom, and one of seven sections.
+- Search headlines and publishers, filter by source, and choose chronological order.
+- Preview the original supplied summary or open the complete report at its publisher.
+- Save up to 300 stories, track read/unread state, and export or import a reading-list backup of up to 2 MB.
+- Share publisher links. Existing duplicates keep their reading state when imported.
+- Filters and article previews are reflected in the URL and support browser Back/Forward.
+- Theme and saved stories are stored locally. Storage failures are visible.
 
-## Data and implementation
+## Data
 
-`src/lib/feed.ts` validates untrusted feed/status payloads and HTTP(S) links.
-Rich `data/{country}/{category}_headlines.json` responses are preferred; the
-original `{country}/{category}.json` paths remain a compatibility fallback.
-Neither article publication dates nor the browser clock are substituted for a
-pipeline refresh timestamp. The sibling pipeline must be deployed before its
-new per-feed metadata appears in the live reader.
+The live route fetches public JSON directly from raw.githubusercontent.com. Rich files at data/{country}/{category}_headlines.json are preferred, with the original {country}/{category}.json contract as a fallback. There is no proxy, API key or persistent application backend.
 
-`src/lib/library.ts` owns preference, saved-queue and cache validation.
-`src/hooks/useFeed.ts` owns cancellation, timeout, cache and race protection.
-The library uses `news-reader:library:v1` (live) and a separate `:demo` suffix.
-There is no account, cloud storage or cross-device synchronization.
+Requests cancel when the selection changes, time out after 15 seconds, refresh every two minutes while visible, and retry when connectivity returns. A failed refresh retains the last successful edition from browser storage or memory. Missing publication metadata stays unavailable.
 
-The selected Romanesque-based Better Design system provides cream/Bordeaux
-tokens, serif editorial headings, Inter controls, composed Sidebar/Dialog/Table
-primitives and owned Iconoir SVG components. The app typechecks its entrypoint,
-domain modules and tests, recursively including imported primitives. Unused
-registry gallery examples are not application entrypoints; some gallery examples
-use package APIs that differ from the installed versions and are not represented
-as verified features.
+The separate /demo route uses explicitly labeled local fixtures and makes no requests to the live pipeline. Its preferences and saved stories use separate storage keys.
 
-## Verification evidence
+## Structure
 
-- **14 unit tests passed**: parsing, literal search, hostile/invalid imports,
-  preferences, stable demo identity, URL round trips, storage failure, last-success
-  recovery, request races and demo isolation.
-- **7 browser tests passed**; one duplicate mobile capture test is intentionally
-  skipped because the desktop capture test covers all three widths. Desktop and
-  mobile discovery/preview/save/reload/read/filter/import and keyboard paths pass.
-- Production build and application typecheck passed.
-- Real Inter loading, no horizontal overflow, and screenshots were checked at
-  390, 1440 and 1728 pixels, including light/dark and focused filter dialogs.
-- Better Design comprehension passed. Measured spacing returned no findings after
-  correcting the dialog's hidden-label false positive and layout defects.
+- src/App.tsx: app shell, URL state and reading actions.
+- src/components: headline layouts, previews, saved reading and edition controls.
+- src/components/ui: composed design primitives, including Sidebar and Table.
+- src/components/icons: the selected Iconoir SVG family.
+- src/lib: feed validation, local storage, demo fixtures and navigation.
+- src/hooks/useFeed.ts: feed lifecycle and recovery.
+- tests/e2e: isolated browser checks and rendered spacing evidence.
 
-Evidence is in `test-results/` after the browser run and is uploaded by CI.
-Detailed boundaries are in `.better-design/review.md`.
-Live feed ingestion, external publisher availability and public deployment are
-not exercised by fixture tests.
+The Romanesque-based editorial system uses locally bundled Newsreader, Inter and JetBrains Mono fonts. See DESIGN.md for its layout and interaction rules.
+
+## Deployment
+
+Vercel builds main with npm run build and serves dist/ with an SPA rewrite. No environment variables are required. The canonical reader is https://24x7.vercel.app.
+
+Article text and photography belong to the original publishers. Publisher access restrictions may apply.

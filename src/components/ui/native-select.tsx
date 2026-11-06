@@ -1,10 +1,6 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-// Airbnb NativeSelect: native <select> styled to match the design system
-// h-10, rounded-[10px], border-border, shadow-[0_1px_2px_0_rgb(0_0_0/0.04)]
-// Custom chevron via bg-image SVG (light theme: dark chevron)
-// Appearance: none to hide native arrow, pr-8 to make room for custom arrow
 
 interface NativeSelectProps extends Omit<React.SelectHTMLAttributes<HTMLSelectElement>, "size"> {
   error?: boolean

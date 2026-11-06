@@ -7,18 +7,19 @@ export type ReaderState = { country: Country; category: Category; theme: 'light'
 export const storageKeys = { library: 'news-reader:library:v1', preferences: 'news-reader:preferences:v1' }
 export const defaults: ReaderState = { country: 'in', category: 'general', theme: 'light' }
 export function preferences(raw: string | null): ReaderState {
+  const fallback = { ...defaults, theme: typeof window !== 'undefined' && window.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' as const : 'light' as const }
   try {
     const value: unknown = JSON.parse(raw || 'null')
-    if (!isRecord(value)) return defaults
+    if (!isRecord(value)) return fallback
     return {
       country: typeof value.country === 'string' && Object.hasOwn(countries, value.country) ? value.country as Country : defaults.country,
       category: categories.includes(value.category as Category) ? value.category as Category : defaults.category,
       theme: value.theme === 'dark' ? 'dark' : 'light',
     }
-  } catch { return defaults }
+  } catch { return fallback }
 }
 export function parseLibrary(raw: string | null, strict = false): SavedArticle[] {
-  const invalid = () => { if (strict) throw new Error('Choose a valid News Reader export.'); return [] }
+  const invalid = () => { if (strict) throw new Error('Choose a valid saved-stories export.'); return [] }
   if (!raw || raw.length > MAX_IMPORT_BYTES || new Blob([raw]).size > MAX_IMPORT_BYTES) return invalid()
   try {
     const value: unknown = JSON.parse(raw)
@@ -43,7 +44,7 @@ export function parseLibrary(raw: string | null, strict = false): SavedArticle[]
 export function mergeLibrary(current: SavedArticle[], incoming: SavedArticle[]) {
   const merged = new Map(current.map((item) => [item.article.id, item]))
   for (const item of incoming) if (!merged.has(item.article.id)) merged.set(item.article.id, item)
-  if (merged.size > MAX_SAVED) throw new Error(`The reading queue can hold ${MAX_SAVED} stories. Remove some before importing.`)
+  if (merged.size > MAX_SAVED) throw new Error(`Your reading list can hold ${MAX_SAVED} stories. Remove some before importing.`)
   return [...merged.values()]
 }
 export function readStorage(key: string): string | null {
@@ -52,7 +53,7 @@ export function readStorage(key: string): string | null {
 export function writeStorage(key: string, value: unknown): boolean {
   try { localStorage.setItem(key, JSON.stringify(value)); return true } catch { return false }
 }
-export const cacheKey = (country: Country, category: Category, demo: boolean) => `news-reader:feed:v1:${demo ? 'demo' : 'live'}:${country}:${category}`
+export const cacheKey = (country: Country, category: Category) => `news-reader:feed:v1:live:${country}:${category}`
 export function cachedFeed(raw: string | null): Feed | null {
   if (!raw || raw.length > MAX_IMPORT_BYTES) return null
   try {

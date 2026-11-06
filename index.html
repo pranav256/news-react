@@ -1,25 +1,61 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f7f4ee" />
     <meta
       name="description"
-      content="Discover headlines, save a browser-local reading queue, and inspect feed freshness."
+      content="A little perspective, every day. Read headlines from India, the US, and the UK. Save stories for later. An open news reader, powered by news-api."
     />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
-      rel="stylesheet"
+    <link rel="canonical" href="https://24x7.vercel.app/" />
+    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="24×7" />
+    <meta property="og:title" content="24×7 — The daily edition." />
+    <meta
+      property="og:description"
+      content="Original reporting from India, the US, and the UK. Save your reading list in this browser."
     />
-    <title>News Reader</title>
+    <meta property="og:url" content="https://24x7.vercel.app/" />
+    <meta property="og:image" content="https://24x7.vercel.app/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="24×7 — The daily edition." />
+    <meta
+      name="twitter:description"
+      content="Original reporting from India, the US, and the UK. Save your reading list in this browser."
+    />
+    <meta name="twitter:image" content="https://24x7.vercel.app/og.png" />
+    <title>24×7 — The daily edition.</title>
+    <script>
+      try {
+        var preference = JSON.parse(
+          localStorage.getItem(
+            'news-reader:preferences:v1' + (location.pathname === '/demo' ? ':demo' : ''),
+          ) || 'null',
+        );
+        var dark = preference
+          ? preference.theme === 'dark'
+          : matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.classList.toggle('dark', dark);
+      } catch (_) {
+        document.documentElement.classList.toggle(
+          'dark',
+          matchMedia('(prefers-color-scheme: dark)').matches,
+        );
+      }
+    </script>
   </head>
-
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <noscript
+      >Enable JavaScript to read this edition, or visit
+      <a href="https://github.com/pranav256/news-api">the public news repository</a>.</noscript
+    >
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
-      <script defer src="/_vercel/insights/script.js"></script>
   </body>
 </html>

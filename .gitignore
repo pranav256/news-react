@@ -28,3 +28,9 @@ playwright-report/
 .env
 .env.*
 !.env.example
+
+.review/
+.vercel/
+
+.vercel
+.env*
