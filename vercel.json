@@ -1,1 +1,4 @@
-{"framework":"vite","redirects":[{"source":"/demo","destination":"/","permanent":true}]}
+{
+  "framework": "vite",
+  "rewrites": [{ "source": "/demo", "destination": "/index.html" }]
+}
