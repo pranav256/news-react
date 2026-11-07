@@ -2,7 +2,7 @@
 
 Keep the selected Romanesque-based editorial system and Iconoir icons. Use the warm paper and dark slate tokens in src/index.css; keep Newsreader headings, Inter controls and JetBrains Mono figures loaded locally.
 
-The reading app starts with its controls and headlines. Supporting photography stays in small thumbnails below the opening brief. Avoid a large photographic hero or promotional section before the stories.
+The reading app starts with its edition controls and headlines. The lead story pairs its headline, publisher metadata, summary and actions with its photograph. Supporting stories sit in a divided column, with the latest reports below. At narrow widths, stack the lead photograph after its copy. Avoid promotional sections before the stories.
 
 Compose Sidebar for desktop section navigation, Table for saved reading, and the installed Dialog for filters and article previews. At narrow widths, show section controls in the main flow and stack saved records without horizontal page scrolling.
 

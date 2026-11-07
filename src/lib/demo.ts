@@ -14,7 +14,7 @@ const stories = [
 export function demoFeed(country: Country, category: Category) {
   const selected = stories.map((story, index) => ({ story, index })).filter(({ story }) => category === 'general' || story[2] === category)
   return parseFeed({ fetched_at: '2026-10-05T06:00:00Z', providers: ['demo fixtures'], articles: selected.map(({ story: [title, description], index }) => ({
-    title, description, url: `https://example.com/${country}/sample-story-${index}`, urlToImage: null,
+    title, description, url: `https://example.com/${country}/sample-story-${index}`, urlToImage: index === 0 ? new URL('/demo/garden.jpg', window.location.origin).href : null,
     source: { id: 'sample-news', name: index % 2 ? 'Community Journal (sample)' : 'Daily Reader (sample)' },
     author: 'Demo newsroom', publishedAt: `2026-10-05T0${6 - index % 5}:00:00Z`,
   })) })

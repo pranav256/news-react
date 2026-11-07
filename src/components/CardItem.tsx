@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { BookmarkIcon } from '@/components/icons';
+import { cn } from '@/lib/utils';
 import { type Article } from '@/lib/feed';
 
 export function dateLabel(value: string | null) {
@@ -34,20 +35,24 @@ export default function CardItem({ article, featured, compact, saved, onSave, on
   return (
     <Card
       role="article"
-      className={'story' + (featured ? ' story-featured' : '') + (compact ? ' story-compact' : '')}
+      className={cn('story', {
+        'story-featured': featured,
+        'story-compact': compact,
+        'story-no-image': featured && (!article.urlToImage || imageFailed),
+      })}
     >
       <div className="story-copy">
+        <h3>
+          <a href={article.url} target="_blank" rel="noopener noreferrer">
+            {article.title}
+          </a>
+        </h3>
         <div className="story-meta">
           <span>{article.source.name}</span>
           <time title={dateLabel(article.publishedAt)} dateTime={article.publishedAt || undefined}>
             {shortDate(article.publishedAt)}
           </time>
         </div>
-        <h3>
-          <a href={article.url} target="_blank" rel="noopener noreferrer">
-            {article.title}
-          </a>
-        </h3>
         {featured && article.description && <p className="story-summary">{article.description}</p>}
         <div className="story-footer">
           <Button variant="ghost" className="preview-link" onClick={() => onPreview(article.id)}>
@@ -66,7 +71,7 @@ export default function CardItem({ article, featured, compact, saved, onSave, on
           </Button>
         </div>
       </div>
-      {!featured && (
+      {(!featured || (article.urlToImage && !imageFailed)) && (
         <a
           className="story-image-link"
           href={article.url}
@@ -79,10 +84,10 @@ export default function CardItem({ article, featured, compact, saved, onSave, on
             <img
               src={article.urlToImage}
               alt=""
-              loading="lazy"
+              loading={featured ? 'eager' : 'lazy'}
               decoding="async"
-              width={160}
-              height={160}
+              width={featured ? 1200 : 160}
+              height={featured ? 800 : 160}
               referrerPolicy="no-referrer"
               onError={() => setImageFailed(true)}
             />

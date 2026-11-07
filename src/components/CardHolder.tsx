@@ -4,6 +4,7 @@ import Spinner from './Spinner';
 import { Button } from '@/components/ui/button';
 import { type Article } from '@/lib/feed';
 import { type SavedArticle } from '@/lib/library';
+import { cn } from '@/lib/utils';
 
 type Props = {
   articles: Article[];
@@ -59,11 +60,17 @@ export default function CardHolder(props: Props) {
       )}
       {lead && (
         <>
-          <div className="cover-grid">
+          <div className={cn('cover-grid', { 'cover-grid-single': rest.length === 0 })}>
             {card(lead, true)}
-            <div className="cover-side">
-              {rest.slice(0, 2).map((article) => card(article, false, true))}
-            </div>
+            {rest.length > 0 && (
+              <div className="cover-side">
+                <div className="brief-heading">
+                  <h2>Also in this edition</h2>
+                  <span aria-hidden="true">↘</span>
+                </div>
+                {rest.slice(0, 2).map((article) => card(article, false, true))}
+              </div>
+            )}
           </div>
           {rest.length > 2 && (
             <>

@@ -234,9 +234,6 @@ export default function App() {
                   : 'Original reporting. Different perspectives. Room to think.'}
               </p>
             </div>
-            <span className="edition-monogram" aria-hidden="true">
-              24<span>×</span>7
-            </span>
           </header>
           {demo && (
             <p className="demo-notice" role="note">
@@ -258,19 +255,13 @@ export default function App() {
           )}
           {location.view === 'headlines' ? (
             <>
-              <EditionControls
-                country={location.country}
-                category={location.category}
-                onCountry={(country) => navigate({ country, source: '', query: '', article: '' })}
-                onCategory={changeCategory}
-              />
-              <div className="reader-toolbar">
-                <div className="edition-context">
-                  <h2>{categoryLabel(location.category)}</h2>
-                  <span className="result-count" role="status">
-                    {feed.loading && !feed.feed ? 'Loading edition…' : articles.length + ' stories'}
-                  </span>
-                </div>
+              <div className="edition-tools">
+                <EditionControls
+                  country={location.country}
+                  category={location.category}
+                  onCountry={(country) => navigate({ country, source: '', query: '', article: '' })}
+                  onCategory={changeCategory}
+                />
                 <div className="search-controls">
                   <label className="reader-search">
                     <SearchIcon aria-hidden="true" />
@@ -292,6 +283,19 @@ export default function App() {
                     Filters{filterCount > 0 && <span className="filter-count">{filterCount}</span>}
                   </Button>
                 </div>
+              </div>
+              <div className="reader-toolbar">
+                <div className="edition-context">
+                  <h2>{categoryLabel(location.category)}</h2>
+                  <span className="result-count" role="status">
+                    {feed.loading && !feed.feed ? 'Loading edition…' : articles.length + ' stories'}
+                  </span>
+                </div>
+                {sources.length > 0 && (
+                  <span className="publisher-count">
+                    {sources.length} {sources.length === 1 ? 'publisher' : 'publishers'}
+                  </span>
+                )}
               </div>
               {(location.query || location.source || location.order === 'oldest') && (
                 <div className="reader-active-filters">
@@ -338,8 +342,13 @@ export default function App() {
                       shortDate(feed.feed.fetchedAt)
                     : 'Publication time unavailable'}
                 </span>
-                <Button variant="ghost" disabled={feed.loading} onClick={feed.retry}>
-                  {feed.loading ? 'Refreshing…' : 'Refresh edition'}{' '}
+                <Button
+                  variant="ghost"
+                  disabled={feed.loading}
+                  aria-busy={feed.loading}
+                  onClick={feed.retry}
+                >
+                  Refresh edition{' '}
                   <span aria-hidden="true">↻</span>
                 </Button>
               </div>
