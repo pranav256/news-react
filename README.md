@@ -1,6 +1,6 @@
 # 24x7
 
-A text-led news reader for [the public news-api feeds](https://github.com/pranav256/news-api). Read the live edition, preview publisher summaries, and keep a reading list in this browser.
+A text-led news reader for [the public news-api feeds](https://github.com/pranav256/news-api). Read the live edition, open publisher reports, and keep a reading list in this browser.
 
 [Live reader](https://24x7.vercel.app) | [API playground](https://news-api-live.vercel.app)
 
@@ -27,7 +27,7 @@ For browser checks against the production build, set READER_TEST_SERVER to previ
 
 - Select India, the United States or the United Kingdom, and one of seven sections.
 - Search headlines and publishers, filter by source, and choose chronological order.
-- Preview the original supplied summary or open the complete report at its publisher.
+- Read the supplied summaries and open complete reports at their publishers.
 - Save up to 300 stories, track read/unread state, and export or import a reading-list backup of up to 2 MB.
 - Share publisher links. Existing duplicates keep their reading state when imported.
 - Filters and article previews are reflected in the URL and support browser Back/Forward.

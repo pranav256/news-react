@@ -58,7 +58,6 @@ export default function App() {
   const [notice, setNotice] = useState('');
   const [filtersOpen, setFiltersOpen] = useState(false);
   const filterTrigger = useRef<HTMLButtonElement>(null);
-  const previewTrigger = useRef<HTMLElement | null>(null);
   const feed = useFeed(location.country, location.category, demo);
   const navigate = (changes: Partial<ReaderLocation>, replace = false) => {
     const next = { ...locationRef.current, ...changes };
@@ -120,10 +119,6 @@ export default function App() {
   };
   const markRead = (id: string, read: boolean) =>
     updateSaved(saved.map((item) => (item.article.id === id ? { ...item, read } : item)));
-  const preview = (id: string) => {
-    previewTrigger.current = document.activeElement as HTMLElement;
-    navigate({ article: id });
-  };
   const articles = filterArticles(
     feed.feed?.articles || [],
     location.query,
@@ -330,7 +325,6 @@ export default function App() {
                 cached={feed.cached}
                 saved={saved}
                 onSave={toggleSave}
-                onPreview={preview}
                 onRetry={feed.retry}
                 onClear={() => navigate({ query: '', source: '' })}
                 filtered={!!(location.query || location.source)}
@@ -361,7 +355,6 @@ export default function App() {
               onQuery={(query) => navigate({ query }, true)}
               onReadFilter={(read) => navigate({ read })}
               onRead={markRead}
-              onPreview={preview}
               onRemove={(id) => updateSaved(saved.filter((item) => item.article.id !== id))}
               onImport={(incoming) => updateSaved(mergeLibrary(saved, incoming))}
               onDiscover={() => view('headlines')}
@@ -448,10 +441,7 @@ export default function App() {
         loading={feed.loading}
         onClose={() => navigate({ article: '' })}
         onReturnFocus={() =>
-          (previewTrigger.current?.isConnected
-            ? previewTrigger.current
-            : document.getElementById('main')
-          )?.focus({ preventScroll: true })
+          document.getElementById('main')?.focus({ preventScroll: true })
         }
         saved={selected ? saved.find((item) => item.article.id === selected.id) : undefined}
         onSave={toggleSave}

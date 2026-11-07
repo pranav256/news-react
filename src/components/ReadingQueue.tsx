@@ -27,7 +27,6 @@ type Props = {
   onQuery: (query: string) => void;
   onReadFilter: (read: Props['read']) => void;
   onRead: (id: string, read: boolean) => void;
-  onPreview: (id: string) => void;
   onRemove: (id: string) => void;
   onImport: (items: SavedArticle[]) => void;
   onDiscover: () => void;
@@ -153,9 +152,6 @@ export default function ReadingQueue(props: Props) {
                 </TableCell>
                 <TableCell className="queue-action-cell">
                   <div className="reader-actions">
-                    <Button variant="ghost" onClick={() => props.onPreview(article.id)}>
-                      Preview
-                    </Button>
                     <Button variant="outline" onClick={() => props.onRead(article.id, !read)}>
                       {read ? 'Mark unread' : 'Mark read'}
                     </Button>
@@ -192,7 +188,7 @@ export default function ReadingQueue(props: Props) {
               {busy ? 'Importing…' : 'Import saved stories'}
             </Button>
           </div>
-          <input
+          <Input
             ref={input}
             type="file"
             accept="application/json,.json"

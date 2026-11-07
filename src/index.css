@@ -569,7 +569,7 @@ svg {
 }
 .story {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 5rem;
+  grid-template-columns: minmax(0, 1fr) 7.5rem;
   align-items: start;
   gap: 1.5rem;
   padding: 0;
@@ -587,16 +587,21 @@ svg {
 .story-meta {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: center;
   gap: 0.75rem;
   margin-top: 0;
   font-size: 0.75rem;
   color: var(--muted-foreground);
 }
-.story-meta > span {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+.story-byline {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.75rem;
+  min-width: 0;
+}
+.story-byline > span {
+  overflow-wrap: anywhere;
   color: var(--primary-text);
 }
 .story-meta time {
@@ -617,7 +622,7 @@ svg {
 .story-featured {
   display: grid;
   grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-  align-items: stretch;
+  align-items: start;
   gap: 1.5rem;
   min-height: 0;
 }
@@ -636,19 +641,6 @@ svg {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-.story-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.75rem;
-  margin-top: 0;
-}
-.preview-link {
-  min-height: 2.75rem;
-  padding-inline: 0;
-  font-size: 0.75rem;
-  color: var(--foreground);
-}
 .story-save {
   width: 2.75rem;
   height: 2.75rem;
@@ -666,28 +658,29 @@ svg {
 }
 .story-image-link {
   display: block;
-  width: 5rem;
-  aspect-ratio: 1;
+  position: relative;
+  width: 7.5rem;
+  aspect-ratio: 4 / 3;
   overflow: hidden;
   border-radius: 0.5rem;
   background: var(--secondary);
-  margin-top: 0.25rem;
+  margin: 0;
 }
 .story-image-link img {
   display: block;
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-.image-placeholder {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  align-items: center;
-  justify-content: center;
-  color: var(--muted-foreground);
-  font-family: var(--font-serif);
-  font-size: 2.5rem;
+.story-image-link[data-image-state='loading'] img {
+  opacity: 0;
+}
+.story-image-loading {
+  position: absolute;
+  inset: 0;
+  background: var(--muted);
 }
 .cover-side {
   display: flex;
@@ -724,32 +717,26 @@ svg {
 .story-compact h3 {
   font-size: 1.5rem;
 }
-.story-compact .story-image-link {
-  display: none;
-}
 .story-featured .story-image-link {
   width: 100%;
-  height: 100%;
-  min-height: 20rem;
-  aspect-ratio: auto;
+  height: auto;
+  aspect-ratio: 16 / 10;
   margin: 0;
   border-radius: var(--radius);
 }
+.story-featured .story-image-link img {
+  object-fit: contain;
+}
 .story-no-image {
-  display: flex;
-  justify-content: center;
-  min-height: 20rem;
+  display: block;
+  min-height: 0;
 }
 .story-featured .story-copy {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-}
-.cover-grid .story-footer {
-  margin-top: 0;
 }
 .story-compact .story-meta {
-  align-items: baseline;
+  align-items: center;
 }
 .more-heading {
   display: flex;
@@ -1101,13 +1088,6 @@ svg {
   .api-link:hover {
     color: var(--primary-text);
   }
-  .preview-link:hover {
-    background: transparent;
-    color: var(--foreground);
-  }
-  .story-image-link:hover img {
-    filter: saturate(1.08);
-  }
 }
 @media (max-width: 75rem) {
   .brand-descriptor {
@@ -1126,10 +1106,10 @@ svg {
   }
   .story {
     gap: 1rem;
-    grid-template-columns: minmax(0, 1fr) 4rem;
+    grid-template-columns: minmax(0, 1fr) 6rem;
   }
   .story-image-link {
-    width: 4rem;
+    width: 6rem;
   }
   .search-controls .reader-search {
     width: 12rem;
@@ -1140,11 +1120,6 @@ svg {
   .story-featured {
     display: flex;
     flex-direction: column;
-  }
-  .story-featured .story-image-link {
-    height: auto;
-    min-height: 0;
-    aspect-ratio: 1.9;
   }
   .queue-action-cell button {
     padding-inline: 0.5rem;
@@ -1297,9 +1272,6 @@ svg {
     min-height: 0;
     padding-bottom: 1.5rem;
   }
-  .story-featured .story-image-link {
-    aspect-ratio: 1.5;
-  }
   .story-no-image {
     min-height: 0;
   }
@@ -1327,12 +1299,8 @@ svg {
   .cover-grid .story-compact:last-child {
     padding-bottom: 0;
   }
-  .cover-grid .story-footer {
-    margin-top: 0;
-    padding-top: 0;
-  }
   .story {
-    grid-template-columns: minmax(0, 1fr) 4rem;
+    grid-template-columns: minmax(0, 1fr) 6rem;
     gap: 1rem;
   }
   .story h3 {

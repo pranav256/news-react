@@ -9,6 +9,7 @@ test('demo reader opens publishers, saves stories, and supports the reading list
   });
   await page.goto('/demo');
   await expect(page.getByRole('heading', { name: 'Top stories' })).toBeVisible();
+  await expect(page.getByRole('button', { name: /^Preview/ })).toHaveCount(0);
   await expect(
     page.getByText('Demo. Fictional stories and browser-local saved reading.'),
   ).toBeVisible();
@@ -33,6 +34,7 @@ test('demo reader opens publishers, saves stories, and supports the reading list
     exact: true,
   });
   await expect(savedHeadline).toBeVisible();
+  await expect(page.getByRole('button', { name: /^Preview/ })).toHaveCount(0);
   await expect(savedHeadline).toHaveAttribute('href', 'https://example.com/in/sample-story-0');
   await page.getByRole('button', { name: 'Mark read', exact: true }).click();
   await page.reload();

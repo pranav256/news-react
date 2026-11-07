@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
+import { Skeleton } from '@/components/ui/skeleton';
 import { BookmarkIcon } from '@/components/icons';
 import { cn } from '@/lib/utils';
 import { type Article } from '@/lib/feed';
@@ -28,17 +29,22 @@ type Props = {
   compact?: boolean;
   saved: boolean;
   onSave: (article: Article) => void;
-  onPreview: (id: string) => void;
 };
-export default function CardItem({ article, featured, compact, saved, onSave, onPreview }: Props) {
-  const [imageFailed, setImageFailed] = useState(false);
+export default function CardItem({ article, featured, compact, saved, onSave }: Props) {
+  const imageSrc = article.urlToImage;
+  const [imageState, setImageState] = useState<{
+    src: string | null;
+    status: 'loading' | 'loaded' | 'failed';
+  }>({ src: imageSrc, status: 'loading' });
+  const imageStatus = imageState.src === imageSrc ? imageState.status : 'loading';
+  const showImage = !!imageSrc && !compact && imageStatus !== 'failed';
   return (
     <Card
       role="article"
       className={cn('story', {
         'story-featured': featured,
         'story-compact': compact,
-        'story-no-image': featured && (!article.urlToImage || imageFailed),
+        'story-no-image': !showImage,
       })}
     >
       <div className="story-copy">
@@ -48,16 +54,12 @@ export default function CardItem({ article, featured, compact, saved, onSave, on
           </a>
         </h3>
         <div className="story-meta">
-          <span>{article.source.name}</span>
-          <time title={dateLabel(article.publishedAt)} dateTime={article.publishedAt || undefined}>
-            {shortDate(article.publishedAt)}
-          </time>
-        </div>
-        {featured && article.description && <p className="story-summary">{article.description}</p>}
-        <div className="story-footer">
-          <Button variant="ghost" className="preview-link" onClick={() => onPreview(article.id)}>
-            Preview story <span aria-hidden="true">↗</span>
-          </Button>
+          <div className="story-byline">
+            <span>{article.source.name}</span>
+            <time title={dateLabel(article.publishedAt)} dateTime={article.publishedAt || undefined}>
+              {shortDate(article.publishedAt)}
+            </time>
+          </div>
           <Button
             variant={saved ? 'secondary' : 'ghost'}
             size="icon"
@@ -70,8 +72,9 @@ export default function CardItem({ article, featured, compact, saved, onSave, on
             <BookmarkIcon aria-hidden="true" />
           </Button>
         </div>
+        {featured && article.description && <p className="story-summary">{article.description}</p>}
       </div>
-      {(!featured || (article.urlToImage && !imageFailed)) && (
+      {showImage && (
         <a
           className="story-image-link"
           href={article.url}
@@ -79,23 +82,32 @@ export default function CardItem({ article, featured, compact, saved, onSave, on
           rel="noopener noreferrer"
           tabIndex={-1}
           aria-hidden="true"
+          data-image-state={imageStatus}
         >
-          {article.urlToImage && !imageFailed ? (
-            <img
-              src={article.urlToImage}
-              alt=""
-              loading={featured ? 'eager' : 'lazy'}
-              decoding="async"
-              width={featured ? 1200 : 160}
-              height={featured ? 800 : 160}
-              referrerPolicy="no-referrer"
-              onError={() => setImageFailed(true)}
-            />
-          ) : (
-            <div className="image-placeholder">
-              <span>{article.source.name.slice(0, 1)}</span>
-            </div>
+          {imageStatus === 'loading' && (
+            <Skeleton className="story-image-loading" data-slot="skeleton" />
           )}
+          <img
+            key={imageSrc}
+            src={imageSrc!}
+            alt=""
+            loading={featured ? 'eager' : 'lazy'}
+            fetchPriority={featured ? 'high' : 'auto'}
+            decoding="async"
+            width={featured ? 1200 : 240}
+            height={featured ? 750 : 180}
+            referrerPolicy="no-referrer"
+            onLoad={(event) =>
+              setImageState({
+                src: imageSrc,
+                status:
+                  event.currentTarget.naturalWidth > 1 && event.currentTarget.naturalHeight > 1
+                    ? 'loaded'
+                    : 'failed',
+              })
+            }
+            onError={() => setImageState({ src: imageSrc, status: 'failed' })}
+          />
         </a>
       )}
     </Card>

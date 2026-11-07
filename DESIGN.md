@@ -4,6 +4,8 @@ Keep the selected Romanesque-based editorial system and Iconoir icons. Use the w
 
 The reading app starts with its edition controls and headlines. The lead story pairs its headline, publisher metadata, summary and actions with its photograph. Supporting stories sit in a divided column, with the latest reports below. At narrow widths, stack the lead photograph after its copy. Avoid promotional sections before the stories.
 
+Lead photographs use a landscape frame with contain sizing to preserve the complete image. Latest-story thumbnails use a larger 4:3 crop. Reserve image space while loading, collapse missing or failed images into text-only stories, and do not request images for the text-only supporting column. Headline and photograph links open the original publisher; saving sits beside the byline. There are no preview buttons.
+
 Compose Sidebar for desktop section navigation, Table for saved reading, and the installed Dialog for filters and article previews. At narrow widths, show section controls in the main flow and stack saved records without horizontal page scrolling.
 
 Use one restrained accent, hairline dividers, consistent spacing and targets of at least 44 pixels. Keep hover effects inside fine-pointer media queries and preserve active states. Respect reduced-motion preferences.

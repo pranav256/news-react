@@ -13,7 +13,6 @@ type Props = {
   cached: boolean;
   saved: SavedArticle[];
   onSave: (article: Article) => void;
-  onPreview: (id: string) => void;
   onRetry: () => void;
   onClear: () => void;
   filtered: boolean;
@@ -29,7 +28,6 @@ export default function CardHolder(props: Props) {
       compact={compact}
       saved={props.saved.some((item) => item.article.id === article.id)}
       onSave={props.onSave}
-      onPreview={props.onPreview}
     />
   );
   return (
